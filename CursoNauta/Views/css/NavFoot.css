@@ -1,0 +1,232 @@
+/*-------------------------ESTILOS GENERALES-------------------- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+  /*'Poppins'
+   'Nunito'*/
+    font-family: 'Quicksand', sans-serif;
+    background-color: #f5f5f5; 
+    color: #333;            
+}
+/*-------------------------------------------------------------- */
+
+
+
+/*--------------------------NAV--------------------------- */
+header {
+    background-color: #2e2e2e; 
+    padding: 20px 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    border-bottom: 2px solid #4d4d4d;
+}
+
+header .logo h1 {
+    color:#8c78bf; 
+    font-size: 2.5rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* -----------Barra de búsqueda---------- */
+.search-bar {
+    flex-grow: 1; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+   margin-left: 9%;
+}
+
+.search-bar input {
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    width: 300px;
+}
+
+.search-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.search-icon {
+    width: 26px;
+    height: 26px;
+}
+
+.material-icons {
+    color: #8c78bf; 
+}
+
+/*----- Logo -----*/
+.logo {
+    display: flex;
+    align-items: center; /* Alinea verticalmente la imagen y el texto */
+}
+
+.logo-img {
+    width: 75px; /* Ajusta el tamaño del logo */
+    height: 75px;
+    border-radius: 50%; /* Hace que la imagen sea circular */
+    object-fit: cover; /* Asegura que la imagen se ajuste dentro del círculo */
+    margin-right: 8px; /* Espacio entre el logo y el texto */
+}
+
+/* ----- Usuario ----- */
+.user-profile {
+    display: flex;
+    align-items: center; /* Alinea la imagen y el texto en línea */
+}
+
+.user-img {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 10px; /* Espacio entre la imagen y el nombre de usuario */
+}
+
+.user-info {
+    display: flex;
+    flex-direction: column; /* Alinea el nombre y el rol en columna */
+    align-items: flex-start; /* Alinea el texto a la izquierda */
+}
+
+.user-name {
+    font-size: 1rem;
+    color:#816fae; 
+    margin: 0;
+    font-weight: bold;
+}
+
+.user-role {
+    font-size: 0.8rem;
+    color:#8c8996;
+    margin: 0;
+    margin-top: 2px; /* Añade un pequeño espacio entre el nombre y el rol */
+}
+
+/* ----- Menú desplegable del usuario ----- */
+.user-profile {
+    position: relative; 
+}
+
+.dropdown-menu {
+    display: none; 
+    position: absolute;
+    top: 100%;
+    right: -20px; /* Ajusta el menú más a la derecha */
+    background-color: #2e2e2e;
+    border: 1px solid #8c78bf;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    list-style: none;
+    padding: 0;
+    margin: 10px 0 0;
+    width: 150px; 
+    z-index: 10;
+}
+
+.dropdown-menu li {
+    padding: 10px;
+}
+
+.dropdown-menu li a {
+    text-decoration: none;
+    color: #d3bde6;
+    display: block;
+}
+
+.dropdown-menu li a:hover {
+    background-color: #979797;
+}
+
+/* ----- Navegación ----- */
+nav {
+    flex-grow: 1; 
+    margin-right: 20px; 
+}
+
+nav ul {
+    display: flex; 
+    justify-content: flex-end; /* Alinea los enlaces hacia la derecha */
+    list-style: none; /* Elimina los puntos de la lista */
+    padding: 0;
+    margin: 0;
+}
+
+nav ul li {
+    margin-left: 20px; 
+    position: relative; 
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: #8c78bf; 
+    font-size: 1.2rem;
+}
+
+/* ----- Categorías ----- */
+.dropdown-btn {
+    cursor: pointer;
+    text-decoration: none;
+    color: #8c78bf; 
+    font-size: 1.2rem;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    top: 100%; 
+    left: 0;
+    background-color: #2e2e2e;;
+    box-shadow: 0px 8px 16px  #d3bde6;
+    z-index: 1;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    width: 200px;
+}
+
+.dropdown-content li {
+    padding: 10px;
+}
+
+.dropdown-content li a {
+    text-decoration: none;
+    color:#d3bde6;
+    display: block;
+}
+
+.dropdown-content li a:hover {
+    background-color: #979797; /* Color de fondo cuando el ratón pasa por encima */
+}
+
+.dropdown:hover .dropdown-content {
+    display: block; /* Muestra el menú al hacer hover */
+}
+
+/*-------------------------------------------------------------- */
+
+
+/*--------------------------FOOTER--------------------------- */
+footer {
+    background-color: #2e2e2e;
+    color: #f0f0f0;
+    text-align: center;
+    padding: 20px 0;
+    
+}
+
+footer p {
+    margin: 5px 0;
+}
+/*-------------------------------------------------------------- */

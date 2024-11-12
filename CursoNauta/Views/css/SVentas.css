@@ -1,0 +1,207 @@
+/* General container */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: 'Poppins', sans-serif;
+    min-height: calc(90vh - 60px);
+}
+
+/* Sección del kardex de cursos */
+.kardex-section {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+/* Estilos para los filtros */
+.filters {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 250px;
+}
+
+.filters h3 {
+    font-size: 1.5rem;
+    color: #6a5b8f;
+    margin-bottom: 15px;
+}
+
+.filters label {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 8px;
+    display: block;
+}
+
+.filters select,
+.filters input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 15px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    font-size: 0.9rem;
+    transition: border-color 0.3s ease;
+}
+
+.filters select:focus,
+.filters input:focus {
+    outline: none;
+    border-color: #6a5b8f;
+}
+
+.apply-filters {
+    width: 100%;
+    padding: 10px;
+    background-color: #6a5b8f;
+    color: #ffffff;
+    border: none;
+    border-radius: 10px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.apply-filters:hover {
+    background-color: #594880;
+}
+
+/* Tabla de cursos */
+.courses-kardex {
+    flex-grow: 1;
+    background-color: #f2f2f5;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.courses-kardex h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: #6a5b8f;
+}
+
+/* Estilo para las tablas */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 10px;
+    overflow: hidden;
+}
+.courses-table button{
+   
+    background-color: #6a5b8f;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 15px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.courses-table button:hover {
+    background-color: #574b7b;
+}
+
+.courses-table th,
+.courses-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.courses-table th {
+    background-color: #6a5b8f;
+    color: white;
+    font-weight: 600;
+}
+
+.courses-table td {
+    background-color: #f9f9fd;
+}
+
+.courses-table tr:nth-child(even) td {
+    background-color: #e5e4f1;
+}
+
+.courses-table tr:hover td {
+    background-color: #d1d1e8;
+    cursor: pointer;
+}
+
+/* Detalles de alumnos */
+.course-details {
+    margin-top: 40px;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.students-table th,
+.students-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.students-table th {
+    background-color: #6a5b8f;
+    color: white;
+    font-weight: 600;
+}
+
+.students-table td {
+    background-color: #fdfdfd;
+}
+
+.students-table tr:nth-child(even) td {
+    background-color: #f2f2f5;
+}
+
+.students-table tr:hover td {
+    background-color: #e2e2e5;
+}
+
+tfoot {
+    font-weight: bold;
+    background-color: #f9f9fd;
+}
+
+/* Estilo del botón agregar curso */
+.add-course-btn {
+    padding: 10px 15px;
+    background-color: #6a5b8f;
+    color: #ffffff;
+    border: none;
+    border-radius: 10px;
+    font-size: 1rem;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    margin-left: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.add-course-btn:hover {
+    background-color: #594880;
+}
+
+.add-course-btn i {
+    margin-right: 5px;
+}
+
+.courses-kardex-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.courses-kardex h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: #6a5b8f;
+}
