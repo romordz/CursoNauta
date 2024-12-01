@@ -1,0 +1,162 @@
+
+
+
+/*--------------------------PRESENTACIÓN--------------------------- */
+.hero {
+    background: radial-gradient(circle, #ffffff, #e0e0e0); /* Degradado blanco a gris claro */
+    color: #333; /* Gris oscuro */
+    text-align: center;
+    padding: 100px 20px;
+}
+
+.hero h2 {
+    font-size: 3rem;
+    margin-bottom: 10px;
+    color: #6a5b8f; /* Morado suave */
+}
+
+.hero p {
+    font-size: 1.4rem;
+    margin-bottom: 20px;
+    color: #666; /* Gris medio */
+}
+
+.hero .btn {
+    background-color: #6a5b8f; /* Morado suave */
+    color: #ffffff; /* Blanco */
+    padding: 10px 20px;
+    text-decoration: none;
+    font-size: 1.2rem;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.hero .btn:hover {
+    background-color: #8c76b0; /* Morado más claro */
+}
+/*-------------------------------------------------------------- */
+
+/*--------------------------CURSOS--------------------------- */
+.courses-carousel {
+    position: relative;
+    padding: 40px 0;
+    background-color: #ffffff; /* Blanco */
+    text-align: center;
+    width: 100%; /* Asegura que la sección cubra todo el ancho de la pantalla */
+    overflow: hidden;
+}
+
+a{
+    text-decoration: none;
+}
+/* -----Título----- */
+.courses-carousel h2 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    color: #6a5b8f; /* Morado suave */
+    font-family: 'Poppins', sans-serif;
+}
+
+/* -----Contenedor de los cursos----- */
+.course-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Mostrar 3 columnas */
+    gap: 20px;
+    padding: 0 20px; /* Añade espacio lateral */
+    overflow: hidden;
+}
+
+
+/* -----Tarjetas de los cursos----- */
+.course-card {
+    background-color: #ffffff; /* Blanco */
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra más pronunciada */
+    padding: 20px;
+    text-align: left;
+    transition: transform 0.2s, background-color 0.2s;
+}
+
+.course-card:hover {
+    transform: scale(1.05);
+    background-color: #cacaca; /* Gris muy claro */
+}
+
+.course-img {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+    border-radius: 15px;
+    margin-bottom: 15px;
+}
+
+.course-card h3 {
+    font-size: 1.6rem;
+    color: #6a5b8f; /* Morado suave */
+    margin-bottom: 10px;
+    font-family: 'Poppins', sans-serif;
+}
+
+.stars {
+    font-size: 1.3rem;
+    color: #6a5b8f; /* Morado suave */
+    margin-bottom: 10px;
+}
+
+.course-card p {
+    font-size: 1rem;
+    color: #666; /* Gris medio */
+}
+
+.course-card p:nth-of-type(2) {
+    font-weight: bold;
+    color: #333; /* Gris oscuro */
+}
+
+.course-category {
+    display: inline-block;
+    background-color: #d0d0d0; /* Gris claro */
+    color: #6a5b8f; /* Morado suave */
+    font-size: 0.9rem;
+    padding: 5px 10px;
+    border-radius: 15px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.course-category:hover {
+    background-color: #c0c0c0; /* Gris claro más oscuro */
+}
+
+.carousel-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.6); /* Fondo negro semi-transparente */
+    color: #ffffff; /* Blanco */
+    border: none;
+    padding: 10px 15px;
+    font-size: 2rem;
+    cursor: pointer;
+    z-index: 1;
+    opacity: 0.8;
+    transition: opacity 0.3s, background-color 0.3s;
+    border-radius: 50%; /* Forma circular para las flechas */
+}
+
+.carousel-arrow:hover {
+    opacity: 1;
+    background-color: rgba(0, 0, 0, 0.8); /* Más oscuro al hacer hover */
+}
+
+.left-arrow {
+    left: 10px;
+}
+
+.right-arrow {
+    right: 10px;
+}
+/*-------------------------------------------------------------- */
+
+

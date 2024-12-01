@@ -1,0 +1,72 @@
+body {
+    font-family: 'Merriweather', serif;
+    background-color: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.diploma-container {
+    background-color: #fff;
+    border: 10px solid #00274d;
+    padding: 40px;
+    width: 800px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    text-align: center;
+}
+
+.diploma-header h1 {
+    font-size: 2.5em;
+    color: #00274d;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.diploma-body {
+    margin: 30px 0;
+}
+
+.diploma-body p {
+    font-size: 1.2em;
+    color: #555;
+    margin: 10px 0;
+}
+
+.diploma-body h2 {
+    font-size: 2em;
+    color: #00274d;
+    margin: 20px 0;
+    font-weight: bold;
+}
+
+.diploma-body h3 {
+    font-size: 1.5em;
+    color: #00274d;
+    margin: 20px 0;
+    font-style: italic;
+}
+
+.diploma-footer {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 50px;
+}
+
+.signature, .date {
+    width: 45%;
+}
+
+.signature p, .date p {
+    font-size: 1em;
+    color: #555;
+}
+
+.signature hr, .date hr {
+    border: 1px solid #555;
+    margin: 10px 0;
+}
+

@@ -1,0 +1,373 @@
+/*--------------------------TITULO--------------------------- */
+.course-container {
+    margin-top: 30px;
+    padding: 20px;
+}
+
+.course-header {
+    position: relative;
+    background-position: center;
+    margin-bottom: 20px;
+    text-align: left;
+    
+}
+.course-header::before {
+    content: ''; 
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(255, 255, 255, 0.516); 
+    z-index: 1; 
+}
+
+.course-header * {
+    position: relative;
+    z-index: 2; /* Mantiene el texto encima de la capa semitransparente */
+}
+
+.course-title {
+    font-size: 2rem;
+    color: #50398a; 
+    margin-bottom: 5px;
+}
+
+/* .course-author {
+    font-size: 1rem;
+    color: #49357b; 
+} */
+
+.course-category {
+    display: inline-block;
+    background-color: #dad4e1; /* Gris claro */
+    color: #6a5b8f; /* Morado suave */
+    font-size: 0.9rem;
+    padding: 5px 10px;
+    border-radius: 15px;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+/* ----- Descripción ----- */
+.course-description {
+    margin-bottom: 20px;
+}
+
+.course-description h2 {
+    font-size: 1.5rem;
+    color: #6a5b8f; /* Morado suave */
+    margin-bottom: 10px;
+}
+
+/*------------------------------------------------------------ */
+
+/*-----------------------------VIDEO Y TEMAS----------------------------- */
+.video-and-topics {
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.video-section {
+    flex: 2;
+    margin-right: 20px;
+}
+
+video {
+    width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+}
+
+.progress-bar {
+    width: 100%;
+    background: #ddd;
+    height: 10px;
+    border-radius: 5px;
+    overflow: hidden;
+    position: relative;
+    margin-top: 5px;
+}
+
+.progress-fill {
+    height: 100%;
+    background: #724caf;
+    width: 0%; 
+}
+
+/* .progress-text {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #333;
+    font-size: 14px;
+} */
+
+/* ----- Temas Principales ----- */
+.topics-section {
+    flex: 1;
+    background-color: #ece7f6; 
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.topics-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+
+.topic-title {
+    display: flex;
+    align-items: center; 
+    justify-content: center;
+    margin-bottom: 20px; 
+    text-align: center; 
+}
+
+.topic-title i {
+    font-size: 24px; 
+    margin-right: 10px; 
+}
+
+.topic-title h2 {
+    margin: 0; 
+}
+
+
+.topic-btn {
+    background: #6a5b8f; 
+    color: white;
+    border: none;
+    padding: 20px;
+    cursor: pointer;
+    width: 100%;
+    text-align: left;
+    font-size: 16px;
+    margin-bottom: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 5px;
+}
+
+.arrow {
+    font-size: 18px;
+    transition: transform 0.3s ease;
+}
+
+/* ----- Subtemas ----- */
+.subtopics-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    background: #f9f9f9;
+    display: none;
+    border-radius: 5px;
+}
+
+.subtopics-list li {
+    padding: 20px;
+    border-bottom: 2px solid #ddd;
+    display: flex;
+    align-items: center;
+}
+
+.subtopic-checkbox {
+    width: 20px; /* Ajusta el tamaño del checkbox */
+    height: 20px; /* Ajusta el tamaño del checkbox */
+    margin-right: 10px;
+    pointer-events: none; 
+}
+
+.subtopic-link {
+    text-decoration: none;
+    color: #333;
+}
+
+.subtopic-link:hover {
+    text-decoration: underline;
+    
+}
+
+.subtopic-link:visited {
+    color: #7754d2; 
+}
+/* ----- Recursos ----- */
+.course-resources {
+    margin-top: 20px; 
+    padding: 10px;
+    background-color: #f5f5f5; 
+    border-radius: 5px;
+    border: 1px solid #ddd; 
+}
+
+.resource-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+    color: #6a5b8f; 
+}
+
+.resource-header .toggle-icon {
+    font-size: 1.5rem;
+    transition: transform 0.3s;
+}
+
+.resource-content {
+    display: none; 
+    margin-top: 10px;
+}
+
+.resource-content ul {
+    list-style: none;
+    padding: 0;
+}
+
+.resource-content li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.resource-image {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    margin-right: 10px;
+    border-radius: 5px;
+}
+
+.file-icon {
+    margin-right: 5px;
+}
+
+.resource-content a {
+    text-decoration: none;
+    color: #333; 
+    font-weight: bold;
+}
+
+.resource-content a:hover {
+    color: #6a5b8f; 
+}
+
+.resource-header.open .toggle-icon {
+    transform: rotate(90deg); 
+}
+/*----------------------------------------------------------------------- */
+
+/*--------------------------VALORACIONES Y COMENTARIOS--------------------------- */
+.feedback-section {
+    margin-top: 40px;
+}
+
+.ratings {
+    font-size: 18px;
+    margin-bottom: 50px;
+    color: #6a5b8f; 
+}
+
+
+.comment {
+    padding: 10px;
+    /* margin-bottom: 10px; */
+    border-bottom: 1px solid #ddd;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #f5f5f5; 
+}
+
+/* .comment:last-child {
+    border-bottom: none; 
+} */
+
+.user-info {
+    display: flex;
+    align-items: center;
+}
+
+.comment-user-img {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 10px;
+}
+
+.comment-username {
+    font-size: 1rem;
+    font-weight: bold;
+    color: #6a5b8f; 
+}
+
+.comment-date {
+    font-size: 0.9rem;
+    color: #666; 
+}
+
+.comment-text {
+    flex-grow: 1;
+    padding: 0 20px;
+    font-size: 1rem;
+    color: #333; 
+}
+
+.delete-btn {
+    background: #533689;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.delete-btn:hover {
+    background: #d07fff;
+}
+
+
+/*--------------------------COMPRA DEL CURSO--------------------------- */
+
+.course-purchase {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+    background-color: #d3bde6; 
+    padding: 15px;
+    justify-content: center; 
+    border-radius: 10px; 
+}
+
+.course-price {
+    font-size: 24px;
+    color: #333;
+    margin-right: 20px;
+}
+
+.purchase-btn {
+    background: #ff9800;
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+    transition: transform 0.2s, background-color 0.3s;
+}
+
+.purchase-btn:hover {
+    background: #fb8c00; 
+    transform: scale(1.05); 
+}
+
+a{
+    text-decoration: none;
+}
