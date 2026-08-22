@@ -1,8 +1,8 @@
-<?php include 'Views\Parciales\Head.php'; ?>
+<?php include 'Views/Parciales/Head.php'; ?>
 
 <link rel="stylesheet" href="Views/css/SAdmi.css">
 
-<?php include 'Views\Parciales\Nav.php'; ?>
+<?php include 'Views/Parciales/Nav.php'; ?>
 
 
 <!------------ SECCION DE OBTENER CATEGORIAS PARA MOSTRAR --------------->
@@ -10,7 +10,7 @@
 <?php
 $userId = $_SESSION['user_id'];
 
-require_once 'Controllers\CategoriaController.php';
+require_once 'Controllers/CategoriaController.php';
 
 $categorias = ($userId) ? $controller->mostrarCategorias($userId) : [];
 ?>
@@ -302,6 +302,6 @@ $reporteEstudiantes = $reportesController->mostrarReporteEstudiantes();
     </div>
 </div>
 
-<script src="Views\js\JAdmi.js"> </script>
+<script src="Views/js/JAdmi.js"> </script>
 
-<?php include 'Views\Parciales\Footer.php'; ?>
+<?php include 'Views/Parciales/Footer.php'; ?>

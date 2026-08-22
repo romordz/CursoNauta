@@ -58,6 +58,6 @@ if ($idCurso > 0) {
 </div>
 
 
-<script src="Views\js\JPago.js"> </script>
+<script src="Views/js/JPago.js"> </script>
 
 <?php include 'Views/Parciales/Footer.php'; ?>

@@ -100,4 +100,4 @@ $categoriasActivas = $navController->getCategoriasActivas();
     </div>
 </header>
 
-<script src="Views\js\Nav.js"></script>
+<script src="Views/js/Nav.js"></script>

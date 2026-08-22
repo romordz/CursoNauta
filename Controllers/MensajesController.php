@@ -1,6 +1,6 @@
 <?php
-include_once 'Models\MensajesModel.php';
-include_once 'Models\Database.php';
+include_once 'Models/MensajesModel.php';
+include_once 'Models/Database.php';
 
 // Crear una conexión y acceder al modelo
 $database = new Database();

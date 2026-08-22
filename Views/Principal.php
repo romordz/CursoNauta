@@ -1,6 +1,6 @@
 <?php
-include 'Views\Parciales\Head.php';
-include_once 'Controllers\VistasController.php';
+include 'Views/Parciales/Head.php';
+include_once 'Controllers/VistasController.php';
 
 $controller = new VistasController();
 
@@ -26,7 +26,7 @@ function renderStars($rating)
 
 <link rel="stylesheet" href="Views/css/SPrincipal.css">
 
-<?php include 'Views\Parciales\Nav.php'; ?>
+<?php include 'Views/Parciales/Nav.php'; ?>
 
 <!-- Presentación -->
 <section id="inicio" class="hero">
@@ -93,4 +93,4 @@ function renderStars($rating)
     </div>
 </section>
 
-<?php include 'Views\Parciales\Footer.php'; ?>
+<?php include 'Views/Parciales/Footer.php'; ?>

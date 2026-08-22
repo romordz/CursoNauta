@@ -1,9 +1,9 @@
-<?php include 'Views\Parciales\Head.php'; ?>
+<?php include 'Views/Parciales/Head.php'; ?>
 
 <link rel="stylesheet" href="Views/css/SVentas.css">
 
 <?php 
-include 'Views\Parciales\Nav.php';
+include 'Views/Parciales/Nav.php';
 
 require_once 'Controllers/CursoController.php';
 $cursoController = new CursoController();
@@ -164,4 +164,4 @@ $totalIngresos = $cursoController->obtenerTotalIngresos();
     }
 </script>
 
-<?php include 'Views\Parciales\Footer.php'; ?>
+<?php include 'Views/Parciales/Footer.php'; ?>

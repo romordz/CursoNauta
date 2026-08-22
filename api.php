@@ -1,5 +1,5 @@
 <?php
-include 'Models\Database.php';
+include 'Models/Database.php';
 
 $database = new Database();
 $conn = $database->getConnection();
@@ -152,7 +152,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
 
                 if (!empty($_POST['photo_base64'])) {
                     $photoBase64 = $_POST['photo_base64'];
-                    $photoBase64 = preg_replace('/^data:image\/\w+;base64,/', '', $photoBase64);
+                    $photoBase64 = preg_replace('/^data:image///w+;base64,/', '', $photoBase64);
                     $fieldsToUpdate[] = "foto_avatar = :foto_avatar";
                     $params[':foto_avatar'] = base64_decode($photoBase64);
                 }

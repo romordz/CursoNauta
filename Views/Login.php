@@ -1,5 +1,5 @@
-<?php include 'Views\Parciales\Head.php'; ?>
-<link rel="stylesheet" href="Views\\css\\SLoRe.css">
+<?php include 'Views/Parciales/Head.php'; ?>
+<link rel="stylesheet" href="Views//css//SLoRe.css">
 
 <div class="register-container">
     <h2>Iniciar Sesión</h2>
@@ -39,6 +39,6 @@
     </form>
 
 </div>
-<script src="Views\js\JLogin.js"> </script>
+<script src="Views/js/JLogin.js"> </script>
 
 </body>

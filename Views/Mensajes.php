@@ -1,7 +1,7 @@
 <?php
 include 'Views/Parciales/Head.php';
 include 'Views/Parciales/Nav.php';
-include 'Controllers\MensajesController.php';
+include 'Controllers/MensajesController.php';
 ?>
 
 <link rel="stylesheet" href="Views/css/SMensajes.css">

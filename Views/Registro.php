@@ -58,6 +58,6 @@
     </form>
 </div>
 
-<script src="Views\js\JRegistro.js"></script>
+<script src="Views/js/JRegistro.js"></script>
 
 <?php include 'Views/Parciales/Footer.php'; ?>

@@ -1,7 +1,7 @@
-<?php include 'Views\Parciales\Head.php'; ?>
+<?php include 'Views/Parciales/Head.php'; ?>
 <link rel="stylesheet" href="Views/css/SCurso.css">
 
-<?php include 'Views\Parciales\Nav.php'; ?>
+<?php include 'Views/Parciales/Nav.php'; ?>
 
 <?php
 require_once 'Controllers/CursoController.php';
@@ -195,5 +195,5 @@ if ($idCurso > 0) {
 
 </div>
 
-<script src="Views\js\JCurso.js"> </script>
-<?php include 'Views\Parciales\Footer.php'; ?>w
+<script src="Views/js/JCurso.js"> </script>
+<?php include 'Views/Parciales/Footer.php'; ?>w

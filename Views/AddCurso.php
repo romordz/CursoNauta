@@ -1,8 +1,8 @@
-<?php include 'Views\Parciales\Head.php'; ?>
+<?php include 'Views/Parciales/Head.php'; ?>
 
 <link rel="stylesheet" href="Views/css/SAddCurso.css">
 
-<?php include 'Views\Parciales\Nav.php'; ?>
+<?php include 'Views/Parciales/Nav.php'; ?>
 
 <!------------ SECCION DE OBTENER CATEGORIAS PARA MOSTRAR --------------->
 <?php
@@ -79,6 +79,6 @@ $categorias = $controller->obtenerCategorias();
     </div>
 </div>
 
-<script src="Views\js\JAddCurso.js"> </script>
+<script src="Views/js/JAddCurso.js"> </script>
 
-<?php include 'Views\Parciales\Footer.php'; ?>
+<?php include 'Views/Parciales/Footer.php'; ?>
