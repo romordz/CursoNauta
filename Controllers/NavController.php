@@ -9,7 +9,7 @@ class NavController {
 
     // Obtener categorías activas
     public function getCategoriasActivas() {
-        $query = "SELECT id_categoria, nombre_categoria FROM CategoriasActivas";
+        $query = "SELECT id_categoria, nombre_categoria FROM categoriasactivas";
         $stmt = $this->db->getConnection()->prepare($query);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -17,7 +17,7 @@ class NavController {
 
     // Obtener instructores activos
     public function getInstructoresActivos() {
-        $query = "SELECT idUsuario, nombre FROM InstructoresActivos";
+        $query = "SELECT idUsuario, nombre FROM instructoresactivos";
         $stmt = $this->db->getConnection()->prepare($query);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -51,7 +51,7 @@ class NavController {
 
     // Obtener todos los cursos activos
     public function getCursosActivos() {
-        $query = "SELECT * FROM CursosActivos";
+        $query = "SELECT * FROM cursosactivos";
         $stmt = $this->db->getConnection()->prepare($query);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
