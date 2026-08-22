@@ -15,26 +15,26 @@ switch ($_SERVER['REQUEST_METHOD']) {
             $stmt->bindParam(':idUsuario', $idUsuario, PDO::PARAM_INT);
             $stmt->execute();
             $response = $stmt->fetch(PDO::FETCH_ASSOC);
-    
+
             if ($response && isset($response['foto_avatar'])) {
-                $response['foto_avatar'] = $response['foto_avatar'] 
-                    ? 'data:image/jpeg;base64,' . base64_encode($response['foto_avatar']) 
+                $response['foto_avatar'] = $response['foto_avatar']
+                    ? 'data:image/jpeg;base64,' . base64_encode($response['foto_avatar'])
                     : null;
             }
         } else {
             $query = "SELECT * FROM usuarios";
             $stmt = $conn->query($query);
             $response = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    
+
             // Decodificar imágenes si es necesario
             foreach ($response as &$user) {
-                $user['foto_avatar'] = $user['foto_avatar'] 
-                    ? 'data:image/jpeg;base64,' . base64_encode($user['foto_avatar']) 
+                $user['foto_avatar'] = $user['foto_avatar']
+                    ? 'data:image/jpeg;base64,' . base64_encode($user['foto_avatar'])
                     : null;
             }
         }
         break;
-    
+
 
     case 'POST':
         if (isset($_POST['accion']) && $_POST['accion'] === 'registro') {
@@ -42,7 +42,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
             if (!empty($_POST['full_name']) && !empty($_POST['correo']) && !empty($_POST['contrasena']) && !empty($_POST['role']) && !empty($_POST['gender']) && !empty($_POST['birthdate'])) {
                 $nombre = $_POST['full_name'];
                 $correo = $_POST['correo'];
-                $password = $_POST['contrasena'];
+                $password = password_hash($_POST['contrasena'], PASSWORD_DEFAULT);
                 $genero = $_POST['gender'];
                 $fecha_nacimiento = $_POST['birthdate'];
                 $id_rol = ($_POST['role'] === 'instructor') ? 2 : 3;
@@ -96,13 +96,10 @@ switch ($_SERVER['REQUEST_METHOD']) {
 
                 $response['error'] = "El correo no está registrado.";
             } elseif ($user && $user['activo'] == 0) {
-
                 $response['error'] = "La cuenta está desactivada. Contacta al administrador.";
-            } elseif ($user && $password !== $user['contrasena']) {
-
+            } elseif ($user && !password_verify($password, $user['contrasena'])) {
                 $response['error'] = "Contraseña incorrecta.";
             } else {
-
                 if (!empty($user['foto_avatar'])) {
                     $user['foto_avatar'] = base64_encode($user['foto_avatar']);
                 }
@@ -152,12 +149,12 @@ switch ($_SERVER['REQUEST_METHOD']) {
 
                 if (!empty($_POST['photo_base64'])) {
                     $photoBase64 = $_POST['photo_base64'];
-                    $photoBase64 = preg_replace('/^data:image///w+;base64,/', '', $photoBase64);
+                    $photoBase64 = preg_replace('#^data:image/\w+;base64,#', '', $photoBase64);
                     $fieldsToUpdate[] = "foto_avatar = :foto_avatar";
                     $params[':foto_avatar'] = base64_decode($photoBase64);
                 }
-                
-                
+
+
 
                 if (count($fieldsToUpdate) > 0) {
                     $query = "UPDATE usuarios SET " . implode(", ", $fieldsToUpdate) . " WHERE idUsuario = :idUsuario";

@@ -10,7 +10,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     $correo_valor = $correo;
 
-    $url = 'http://localhost:8080/CursoNauta/api.php';
+    $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
+    $url = $protocol . '://' . $_SERVER['HTTP_HOST'] . '/api.php';
 
     $data = array(
         'accion' => 'inicio_sesion',
@@ -62,6 +63,5 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         exit();
     }
 }
-
 
 include 'Views/Login.php';

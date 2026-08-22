@@ -1,8 +1,6 @@
 document.querySelector('form').addEventListener('submit', function(event) {
     const user = document.getElementById('email').value;
     const password = document.getElementById('password').value;
-   
-
     let errorMessages = [];
 
     // Validación de usuario
@@ -23,4 +21,3 @@ document.querySelector('form').addEventListener('submit', function(event) {
         });
     }
 });
-

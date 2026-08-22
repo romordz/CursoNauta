@@ -40,5 +40,4 @@
 
 </div>
 <script src="Views/js/JLogin.js"> </script>
-
 </body>

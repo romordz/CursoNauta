@@ -51,17 +51,17 @@ class CursoModel
     }
 
     public function actualizarNivel($id_nivel, $titulo_nivel, $contenido, $costo)
-{
-    $query = "CALL ActualizarNivel(:id_nivel, :titulo_nivel, :contenido, :costo)";
-    $stmt = $this->conn->prepare($query);
+    {
+        $query = "CALL ActualizarNivel(:id_nivel, :titulo_nivel, :contenido, :costo)";
+        $stmt = $this->conn->prepare($query);
 
-    $stmt->bindParam(':id_nivel', $id_nivel);
-    $stmt->bindParam(':titulo_nivel', $titulo_nivel);
-    $stmt->bindParam(':contenido', $contenido);
-    $stmt->bindParam(':costo', $costo);
+        $stmt->bindParam(':id_nivel', $id_nivel);
+        $stmt->bindParam(':titulo_nivel', $titulo_nivel);
+        $stmt->bindParam(':contenido', $contenido);
+        $stmt->bindParam(':costo', $costo);
 
-    return $stmt->execute();
-}
+        return $stmt->execute();
+    }
 
 
     public function obtenerCursos()
