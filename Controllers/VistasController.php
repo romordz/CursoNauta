@@ -11,7 +11,6 @@ class VistasController {
         return $this->executeQuery($query);
     }
 
-    // Obtener cursos recientes (solo activos)
     public function getCursosRecientes() {
         $query = "SELECT * FROM CursosRecientes LIMIT 5"; 
         return $this->executeQuery($query);
