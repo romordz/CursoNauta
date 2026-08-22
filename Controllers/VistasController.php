@@ -7,22 +7,22 @@ class VistasController {
     }
 
     public function getCursosMasVendidos() {
-        $query = "SELECT * FROM CursosMasVendidos LIMIT 5"; 
+        $query = "SELECT * FROM cursosmasvendidos LIMIT 5"; 
         return $this->executeQuery($query);
     }
 
     public function getCursosRecientes() {
-        $query = "SELECT * FROM CursosRecientes LIMIT 5"; 
+        $query = "SELECT * FROM cursosrecientes LIMIT 5"; 
         return $this->executeQuery($query);
     }
 
     public function getCursosMejorCalificados() {
-        $query = "SELECT * FROM CursosMejorCalificados LIMIT 5"; 
+        $query = "SELECT * FROM cursosmejorcalificados LIMIT 5"; 
         return $this->executeQuery($query);
     }
 
     public function getCursosActivos() {
-        $query = "SELECT * FROM CursosActivos";
+        $query = "SELECT * FROM cursosactivos";
         return $this->executeQuery($query);
     }
 
