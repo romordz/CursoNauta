@@ -53,7 +53,6 @@ switch ($_SERVER['REQUEST_METHOD']) {
                     $foto_avatar = file_get_contents($_FILES['photo']['tmp_name']);
                 }
 
-                // Verificar correo ya exigitste
                 $query = "SELECT idUsuario FROM usuarios WHERE correo = :correo";
                 $stmt = $conn->prepare($query);
                 $stmt->bindParam(':correo', $correo);
@@ -87,7 +86,6 @@ switch ($_SERVER['REQUEST_METHOD']) {
             $correo = $_POST['correo'];
             $password = $_POST['contrasena'];
 
-            // Seleccionar el usuario por correo
             $query = "SELECT * FROM usuarios WHERE correo = :correo";
             $stmt = $conn->prepare($query);
             $stmt->bindParam(':correo', $correo);
@@ -135,7 +133,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
                 }
 
                 if (!empty($_POST['fecha_nacimiento'])) {
-                    $fecha_nacimiento = date('Y-m-d', strtotime($_POST['fecha_nacimiento'])); // Asegura el formato correcto
+                    $fecha_nacimiento = date('Y-m-d', strtotime($_POST['fecha_nacimiento']));
                     $fieldsToUpdate[] = "fecha_nacimiento = :fecha_nacimiento";
                     $params[':fecha_nacimiento'] = $fecha_nacimiento;
                 }
@@ -154,7 +152,6 @@ switch ($_SERVER['REQUEST_METHOD']) {
 
                 if (!empty($_POST['photo_base64'])) {
                     $photoBase64 = $_POST['photo_base64'];
-                    // Eliminar prefijo si existe
                     $photoBase64 = preg_replace('/^data:image\/\w+;base64,/', '', $photoBase64);
                     $fieldsToUpdate[] = "foto_avatar = :foto_avatar";
                     $params[':foto_avatar'] = base64_decode($photoBase64);
@@ -162,17 +159,13 @@ switch ($_SERVER['REQUEST_METHOD']) {
                 
                 
 
-                // Verificar si hay al menos un campo para actualizar
                 if (count($fieldsToUpdate) > 0) {
-                    // Construimos la consulta dinámica
                     $query = "UPDATE usuarios SET " . implode(", ", $fieldsToUpdate) . " WHERE idUsuario = :idUsuario";
                     $stmt = $conn->prepare($query);
 
-                    // Añadir el idUsuario al array de parámetros
                     $params[':idUsuario'] = $idUsuario;
 
                     if ($stmt->execute($params)) {
-                        // Si la actualización es exitosa, actualizar la sesión
                         session_start();
 
                         if (!empty($_POST['full_name'])) {
@@ -204,7 +197,6 @@ switch ($_SERVER['REQUEST_METHOD']) {
 
         break;
     case 'DELETE':
-        //HAY QUE CAMBIAR PARA QUE EN VEZ DE QUE SE BORRE SOLO SE DESACTIVE
         $idUsuario = $_GET['idUsuario'];
         $query = "DELETE FROM usuarios WHERE idUsuario = :idUsuario";
         $stmt = $conn->prepare($query);

@@ -18,7 +18,6 @@ class CategoriaController
 
     public function gestionarSolicitud()
     {
-        // Verifica si 'action' existe en POST
         $action = $_POST['action'] ?? null;
 
         if ($action === 'add') {
@@ -27,8 +26,6 @@ class CategoriaController
             $this->modificarCategoria();
         } elseif ($action === 'toggle') {
             $this->cambiarEstadoCategoria();
-        } else {
-            // echo "Acción no válida.";
         }
     }
 

@@ -1,17 +1,29 @@
 <?php
 class Database {
-    private $host = "localhost";  
-    private $db_name = "CursoNauta"; 
-    private $username = "root";  
-    private $password = ""; 
+    private $host = "";
+    private $db_name = "";
+    private $username = "";
+    private $password = "";
+    private $port = "";
     public $conn;
 
-    // Conectar a la base de datos
+    public function __construct() {
+        $this->host = getenv('MYSQLHOST') ?: 'localhost';
+        $this->db_name = getenv('MYSQLDATABASE') ?: 'CursoNauta';
+        $this->username = getenv('MYSQLUSER') ?: 'root';
+        $this->password = getenv('MYSQLPASSWORD') ?: '';
+        $this->port = getenv('MYSQLPORT') ?: '3306';
+    }
+
     public function getConnection() {
         $this->conn = null;
 
         try {
-            $this->conn = new PDO("mysql:host=" . $this->host . ";dbname=" . $this->db_name, $this->username, $this->password);
+            $this->conn = new PDO(
+                "mysql:host=" . $this->host . ";port=" . $this->port . ";dbname=" . $this->db_name,
+                $this->username,
+                $this->password
+            );
             $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         } catch(PDOException $exception) {
             echo "Error de conexión: " . $exception->getMessage();
