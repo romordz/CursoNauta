@@ -118,20 +118,19 @@ class CursoController
 
     public function cambiarEstadoCurso()
     {
-        try {
-            $data = json_decode(file_get_contents('php://input'), true);
+        $data = json_decode(file_get_contents('php://input'), true);
 
-            if (isset($data['idCurso']) && isset($data['nuevoEstado'])) {
-                $idCurso = (int) $data['idCurso'];
-                $nuevoEstado = (int) $data['nuevoEstado'];
-                $result = $this->cursoModel->actualizarEstadoCurso($idCurso, $nuevoEstado);
+        $idCurso = $data['idCurso'] ?? $_POST['id_curso'] ?? null;
+        $nuevoEstado = $data['nuevoEstado'] ?? $_POST['nuevoEstado'] ?? null;
 
-                echo json_encode(['success' => $result]);
-            } else {
-                echo json_encode(['success' => false, 'message' => 'Datos no válidos']);
-            }
-        } catch (Exception $e) {
-            echo json_encode(['success' => false, 'error' => $e->getMessage()]);
+        if ($idCurso !== null && $nuevoEstado !== null) {
+            $idCurso = (int) $idCurso;
+            $nuevoEstado = (int) $nuevoEstado;
+            $result = $this->cursoModel->actualizarEstadoCurso($idCurso, $nuevoEstado);
+
+            echo json_encode(['success' => $result]);
+        } else {
+            echo json_encode(['success' => false, 'message' => 'Datos no validos']);
         }
     }
 

@@ -42,7 +42,7 @@ class InscripcionController
                 echo "<script>alert('Error al registrar la inscripción.');</script>";
             }
         } else {
-            echo "<script>alert('Datos de inscripción o venta inválidos.');</script>";
+            echo "<script>alert('Datos de inscripción o venta invalidos.');</script>";
         }
    
     }
