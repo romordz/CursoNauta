@@ -6,7 +6,6 @@
 require_once 'Controllers/CursoController.php';
 require_once 'Controllers/CategoriaController.php';
 
-// Validar el parámetro id_curso en la URL
 if (!isset($_GET['id']) || empty($_GET['id'])) {
     header('Location: error.php?message=ID de curso no válido');
     exit;
@@ -14,20 +13,16 @@ if (!isset($_GET['id']) || empty($_GET['id'])) {
 
 $id_curso = (int) htmlspecialchars($_GET['id']);
 
-// Obtener los datos del curso a editar
 $cursoController = new CursoController();
 $curso = $cursoController->obtenerCursoPorId($id_curso);
 
-// Validar que el curso exista
 if (!$curso) {
     header('Location: error.php?message=Curso no encontrado');
     exit;
 }
 
-// Obtener los niveles del curso
 $niveles = $cursoController->obtenerNivelesPorCurso($id_curso);
 
-// Obtener las categorías disponibles
 $categoriaController = new CategoriaController();
 $categorias = $categoriaController->obtenerCategorias();
 ?>
