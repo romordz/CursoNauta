@@ -11,15 +11,14 @@ class CursoModel
         $this->conn = $database->getConnection();
     }
 
-    public function insertarCurso($titulo, $descripcion, $imagen, $costo, $niveles, $id_instructor, $id_categoria)
+    public function insertarCurso($titulo, $descripcion, $imagen_url, $costo, $niveles, $id_instructor, $id_categoria)
     {
-        $query = "CALL InsertarCurso(:titulo, :descripcion, :imagen, :costo, :niveles, :id_instructor, :id_categoria, @p_id_curso)";
+        $query = "CALL InsertarCurso(:titulo, :descripcion, :imagen_url, :costo, :niveles, :id_instructor, :id_categoria, @p_id_curso)";
         $stmt = $this->conn->prepare($query);
 
-        // Vincular parámetros
         $stmt->bindParam(':titulo', $titulo);
         $stmt->bindParam(':descripcion', $descripcion);
-        $stmt->bindParam(':imagen', $imagen, PDO::PARAM_LOB);
+        $stmt->bindParam(':imagen_url', $imagen_url); // ya no PDO::PARAM_LOB
         $stmt->bindParam(':costo', $costo);
         $stmt->bindParam(':niveles', $niveles);
         $stmt->bindParam(':id_instructor', $id_instructor);
@@ -33,18 +32,17 @@ class CursoModel
         return false;
     }
 
-    public function insertarNivel($id_curso, $numero_nivel, $titulo_nivel, $video, $contenido, $archivos, $costo)
+    public function insertarNivel($id_curso, $numero_nivel, $titulo_nivel, $video_url, $contenido, $archivo_url, $costo)
     {
-        $query = "CALL InsertarNivel(:id_curso, :numero_nivel, :titulo_nivel, :video, :contenido, :archivos, :costo)";
+        $query = "CALL InsertarNivel(:id_curso, :numero_nivel, :titulo_nivel, :video_url, :contenido, :archivo_url, :costo)";
         $stmt = $this->conn->prepare($query);
 
-        // Vincular parámetros
         $stmt->bindParam(':id_curso', $id_curso);
         $stmt->bindParam(':numero_nivel', $numero_nivel);
         $stmt->bindParam(':titulo_nivel', $titulo_nivel);
-        $stmt->bindParam(':video', $video_url);
+        $stmt->bindParam(':video_url', $video_url); // corregido: antes decía $video_url pero el parámetro era $video
         $stmt->bindParam(':contenido', $contenido);
-        $stmt->bindParam(':archivos', $archivos, PDO::PARAM_LOB);
+        $stmt->bindParam(':archivo_url', $archivo_url); // ya no PDO::PARAM_LOB
         $stmt->bindParam(':costo', $costo);
 
         return $stmt->execute();
@@ -133,17 +131,15 @@ class CursoModel
         return $stmt->fetchAll();
     }
 
-    // NUEVO MÉTODO PARA ACTUALIZAR CURSO
-    public function actualizarCurso($id_curso, $titulo, $descripcion, $imagen, $costo, $id_categoria)
+    public function actualizarCurso($id_curso, $titulo, $descripcion, $imagen_url, $costo, $id_categoria)
     {
-        $query = "CALL ActualizarCurso(:id_curso, :titulo, :descripcion, :imagen, :costo, :id_categoria)";
+        $query = "CALL ActualizarCurso(:id_curso, :titulo, :descripcion, :imagen_url, :costo, :id_categoria)";
         $stmt = $this->conn->prepare($query);
 
-        // Vincular parámetros
         $stmt->bindParam(':id_curso', $id_curso, PDO::PARAM_INT);
         $stmt->bindParam(':titulo', $titulo);
         $stmt->bindParam(':descripcion', $descripcion);
-        $stmt->bindParam(':imagen', $imagen, PDO::PARAM_LOB);
+        $stmt->bindParam(':imagen_url', $imagen_url); // ya no PDO::PARAM_LOB
         $stmt->bindParam(':costo', $costo);
         $stmt->bindParam(':id_categoria', $id_categoria);
 

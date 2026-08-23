@@ -1,5 +1,6 @@
 <?php
 include 'Models/Database.php';
+require_once 'Models/CloudinaryUploader.php';
 
 $database = new Database();
 $conn = $database->getConnection();
@@ -48,9 +49,10 @@ switch ($_SERVER['REQUEST_METHOD']) {
                 $id_rol = ($_POST['role'] === 'instructor') ? 2 : 3;
 
 
-                $foto_avatar = null;
+                $foto_avatar_url = null;
                 if (isset($_FILES['photo']) && $_FILES['photo']['error'] === UPLOAD_ERR_OK) {
-                    $foto_avatar = file_get_contents($_FILES['photo']['tmp_name']);
+                    $uploader = new CloudinaryUploader();
+                    $foto_avatar_url = $uploader->subirImagen($_FILES['photo']['tmp_name']);
                 }
 
                 $query = "SELECT idUsuario FROM usuarios WHERE correo = :correo";
@@ -67,7 +69,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
                     $stmt->bindParam(':nombre', $nombre);
                     $stmt->bindParam(':genero', $genero);
                     $stmt->bindParam(':fecha_nacimiento', $fecha_nacimiento);
-                    $stmt->bindParam(':foto_avatar', $foto_avatar, PDO::PARAM_LOB);
+                    $stmt->bindParam(':foto_avatar_url', $foto_avatar_url);
                     $stmt->bindParam(':correo', $correo);
                     $stmt->bindParam(':contrasena', $password);
                     $stmt->bindParam(':id_rol', $id_rol);
@@ -150,8 +152,17 @@ switch ($_SERVER['REQUEST_METHOD']) {
                 if (!empty($_POST['photo_base64'])) {
                     $photoBase64 = $_POST['photo_base64'];
                     $photoBase64 = preg_replace('#^data:image/\w+;base64,#', '', $photoBase64);
-                    $fieldsToUpdate[] = "foto_avatar = :foto_avatar";
-                    $params[':foto_avatar'] = base64_decode($photoBase64);
+                    $binario = base64_decode($photoBase64);
+
+                    $tmpFile = tempnam(sys_get_temp_dir(), 'avatar_');
+                    file_put_contents($tmpFile, $binario);
+
+                    $uploader = new CloudinaryUploader();
+                    $urlSubida = $uploader->subirImagen($tmpFile);
+                    unlink($tmpFile);
+
+                    $fieldsToUpdate[] = "foto_avatar_url = :foto_avatar_url";
+                    $params[':foto_avatar_url'] = $urlSubida;
                 }
 
 

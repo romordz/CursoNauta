@@ -35,9 +35,11 @@ class CursoController
 
         $titulo = $_POST['course_title'];
         $descripcion = $_POST['course_description'];
-        $imagen = isset($_FILES['course_image']['tmp_name']) && !empty($_FILES['course_image']['tmp_name'])
-            ? file_get_contents($_FILES['course_image']['tmp_name'])
-            : null;
+        $imagen_url = null;
+        if (isset($_FILES['course_image']['tmp_name']) && !empty($_FILES['course_image']['tmp_name'])) {
+            $uploader = new CloudinaryUploader();
+            $imagen_url = $uploader->subirImagen($_FILES['course_image']['tmp_name']);
+        }
 
         $costo = $_POST['course_price'];
         $niveles = (int) $_POST['levels'];
@@ -47,7 +49,7 @@ class CursoController
         $this->cursoModel->beginTransaction();
 
         try {
-            $id_curso = $this->cursoModel->insertarCurso($titulo, $descripcion, $imagen, $costo, $niveles, $id_instructor, $id_categoria);
+            $id_curso = $this->cursoModel->insertarCurso($titulo, $descripcion, $imagen_url, $costo, $niveles, $id_instructor, $id_categoria);
 
             if (!$id_curso) {
                 throw new Exception("Error al agregar el curso.");
@@ -75,13 +77,15 @@ class CursoController
                     $video_url = $uploader->subirVideo($tmpPath);
                 }
 
-                $archivos = isset($_FILES["level_attachments_$i"]['tmp_name']) && !empty($_FILES["level_attachments_$i"]['tmp_name'])
-                    ? file_get_contents($_FILES["level_attachments_$i"]['tmp_name'])
-                    : null;
+                $archivo_url = null;
+                if (isset($_FILES["level_attachments_$i"]['tmp_name']) && !empty($_FILES["level_attachments_$i"]['tmp_name'])) {
+                    $uploader = new CloudinaryUploader();
+                    $archivo_url = $uploader->subirArchivo($_FILES["level_attachments_$i"]['tmp_name']);
+                }
 
                 $costo_nivel = isset($_POST["level_price_$i"]) ? $_POST["level_price_$i"] : 0;
 
-                $insertado = $this->cursoModel->insertarNivel($id_curso, $i, $titulo_nivel, $video_url, $contenido, $archivos, $costo_nivel);
+                $insertado = $this->cursoModel->insertarNivel($id_curso, $i, $titulo_nivel, $video_url, $contenido, $archivo_url, $costo_nivel);
 
                 if (!$insertado) {
                     throw new Exception("Error al insertar el nivel $i.");
@@ -170,40 +174,26 @@ class CursoController
 
         $titulo = $_POST['course_title'];
         $descripcion = $_POST['course_description'];
-        $imagen = isset($_FILES['course_image']['tmp_name']) && !empty($_FILES['course_image']['tmp_name'])
-            ? file_get_contents($_FILES['course_image']['tmp_name'])
-            : null;
-
-        echo "Debug: Datos del formulario - Título: $titulo, Descripción: $descripcion<br>";
+        $imagen_url = null;
+        if (isset($_FILES['course_image']['tmp_name']) && !empty($_FILES['course_image']['tmp_name'])) {
+            $uploader = new CloudinaryUploader();
+            $imagen_url = $uploader->subirImagen($_FILES['course_image']['tmp_name']);
+        }
 
         $costo = $_POST['course_price'];
         $id_categoria = $_POST['course_category'];
 
-        echo "Debug: Preparando para actualizar el curso.<br>";
-
-        $resultado = $this->cursoModel->actualizarCurso($id_curso, $titulo, $descripcion, $imagen, $costo, $id_categoria);
-
-        if ($resultado) {
-            echo "Debug: Curso actualizado exitosamente.<br>";
-        } else {
-            echo "Debug: Falló la actualización del curso.<br>";
-            exit;
-        }
+        $resultado = $this->cursoModel->actualizarCurso($id_curso, $titulo, $descripcion, $imagen_url, $costo, $id_categoria);
 
         $niveles = (int) $_POST['levels'];
-        echo "Debug: Número de niveles a actualizar: $niveles<br>";
         for ($i = 1; $i <= $niveles; $i++) {
-            echo "Debug: Procesando nivel $i<br>";
             if (!isset($_POST["level_title_$i"]) || !isset($_POST["level_content_$i"])) {
-                echo "Debug: Datos faltantes para el nivel $i<br>";
                 continue;
             }
             $id_nivel = $_POST["level_id_$i"];
             $titulo_nivel = $_POST["level_title_$i"];
             $contenido = $_POST["level_content_$i"];
             $costo_nivel = $_POST["level_price_$i"];
-
-            echo "Debug: Nivel $i - Título: $titulo_nivel, Contenido: $contenido, Costo: $costo_nivel<br>";
 
             $this->cursoModel->actualizarNivel($id_nivel, $titulo_nivel, $contenido, $costo_nivel);
         }

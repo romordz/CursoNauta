@@ -26,4 +26,24 @@ class CloudinaryUploader
         ]);
         return $result['secure_url'];
     }
+
+    public function subirImagen($tmpPath)
+{
+    $uploadApi = new UploadApi();
+    $result = $uploadApi->upload($tmpPath, [
+        'resource_type' => 'image',
+        'folder' => 'cursonauta/imagenes'
+    ]);
+    return $result['secure_url'];
+}
+
+public function subirArchivo($tmpPath)
+{
+    $uploadApi = new UploadApi();
+    $result = $uploadApi->upload($tmpPath, [
+        'resource_type' => 'auto',
+        'folder' => 'cursonauta/archivos'
+    ]);
+    return $result['secure_url'];
+}
 }
