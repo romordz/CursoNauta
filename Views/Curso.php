@@ -24,6 +24,10 @@ if ($idCurso > 0) {
     exit;
 }
 
+$idUsuario = $_SESSION['user_id'] ?? null;
+$inscripcionModel = new InscripcionModel();
+$yaComprado = $idUsuario ? $inscripcionModel->inscripcionYaRegistrada($idCurso, $idUsuario) : false;
+
 if ($yaComprado) {
     $conn = (new Database())->getConnection();
     $stmt = $conn->prepare("UPDATE inscripciones SET fecha_ultimo_acceso = NOW() WHERE id_usuario = :id_usuario AND id_curso = :id_curso");
