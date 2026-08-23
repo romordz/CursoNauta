@@ -1,27 +1,13 @@
 <?php
 include 'Views/Parciales/Head.php';
 include_once 'Controllers/VistasController.php';
+require_once 'Views/Parciales/Helpers.php';
 
 $controller = new VistasController();
 
 $cursosMasVendidos = $controller->getCursosMasVendidos();
 $cursosRecientes = $controller->getCursosRecientes();
 $cursosMejorCalificados = $controller->getCursosMejorCalificados();
-
-function renderStars($rating)
-{
-    $stars = '';
-    for ($i = 1; $i <= 5; $i++) {
-        if ($rating >= $i) {
-            $stars .= '⭐';
-        } elseif ($rating >= $i - 0.5) {
-            $stars .= '⭐️';
-        } else {
-            $stars .= '☆';
-        }
-    }
-    return $stars;
-}
 ?>
 
 <link rel="stylesheet" href="Views/css/SPrincipal.css">
@@ -92,7 +78,7 @@ function renderStars($rating)
                         <img src="<?= htmlspecialchars($curso['imagen_url']) ?>" alt="Imagen del Curso" class="course-img">
                         <h3><?= htmlspecialchars($curso['titulo']) ?></h3>
                         <span class="course-category"><?= htmlspecialchars($curso['nombre_categoria']) ?></span>
-                        <div class="stars"><?= renderStars($curso['calificacion_promedio']) ?></div>
+                        <div class="stars"><?= renderStarsHtml($curso['calificacion_promedio']) ?></div>
                         <p><?= htmlspecialchars($curso['descripcion']) ?></p>
                         <p><strong>Costo: $<?= number_format($curso['costo'], 2) ?></strong></p>
                         <p>Calificación Promedio: <?= round($curso['calificacion_promedio'], 1) ?></p>

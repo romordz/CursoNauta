@@ -68,6 +68,61 @@
 
 /*------------------------------------------------------------ */
 
+/*----------------------------- ESTRELLAS ----------------------------- */
+
+.star-picker {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+    font-size: 2.2rem;
+}
+
+.star-picker input {
+    display: none;
+}
+
+.star-picker label {
+    color: #ddd;
+    cursor: pointer;
+    transition: color 0.15s;
+}
+
+.star-picker input:checked ~ label,
+.star-picker label:hover,
+.star-picker label:hover ~ label {
+    color: #ffb400;
+}
+
+.star-rating-display {
+    position: relative;
+    display: inline-block;
+    font-size: 1.4rem;
+    line-height: 1;
+    vertical-align: middle;
+}
+
+.stars-empty {
+    color: #ddd;
+    letter-spacing: 2px;
+}
+
+.stars-filled {
+    position: absolute;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    color: #ffb400;
+    letter-spacing: 2px;
+}
+
+.rating-number {
+    font-size: 0.95rem;
+    color: #666;
+    margin-left: 6px;
+    vertical-align: middle;
+}
+
 /*-----------------------------VIDEO Y TEMAS----------------------------- */
 .video-and-topics {
     display: flex;

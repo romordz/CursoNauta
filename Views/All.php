@@ -1,6 +1,7 @@
 <?php 
 include 'Views/Parciales/Head.php'; 
 include_once 'Controllers/NavController.php';
+require_once 'Views/Parciales/Helpers.php';
 
 $navController = new NavController();
 $categoriasActivas = $navController->getCategoriasActivas();
@@ -18,20 +19,6 @@ if ($busqueda) {
     $cursos = $navController->buscarCursosDinamico($categoriaId, $instructorId, $fechaInicio, $fechaFin);
 } else {
     $cursos = $navController->getCursosActivos();
-}
-
-function renderStars($rating) {
-    $stars = '';
-    for ($i = 1; $i <= 5; $i++) {
-        if ($rating >= $i) {
-            $stars .= '⭐';
-        } elseif ($rating >= $i - 0.5) {
-            $stars .= '⭐️';
-        } else {
-            $stars .= '☆';
-        }
-    }
-    return $stars;
 }
 ?>
 
@@ -98,7 +85,7 @@ function renderStars($rating) {
                         <img src="<?= htmlspecialchars($curso['imagen_url']) ?>" alt="Imagen del Curso" class="course-img">
                         <h3><?= htmlspecialchars($curso['titulo']) ?></h3>
                         <span class="course-category"><?= htmlspecialchars($curso['nombre_categoria']) ?></span>
-                        <div class="stars"><?= renderStars($curso['calificacion_promedio']) ?></div>
+                        <div class="stars"><?= renderStarsHtml($curso['calificacion_promedio']) ?></div>
                         <p><strong>Instructor: <?= htmlspecialchars($curso['nombre_instructor']) ?></strong></p>
                         <p>Niveles: <?= htmlspecialchars($curso['niveles']) ?></p>
                         <p>Costo: $<?= htmlspecialchars(number_format($curso['costo'], 2)) ?></p>

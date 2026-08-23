@@ -2,11 +2,13 @@
 <link rel="stylesheet" href="Views/css/SCurso.css">
 <?php include 'Views/Parciales/Nav.php'; ?>
 
+
 <?php
 require_once 'Controllers/CursoController.php';
 require_once 'Models/InscripcionModel.php';
 require_once 'Models/ProgresoModel.php';
 require_once 'Controllers/ComentariosController.php';
+require_once 'Views/Parciales/Helpers.php';
 
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
@@ -101,7 +103,7 @@ if ($yaComprado && $idUsuario) {
                                 <li>
                                     <?php if ($yaComprado): ?>
                                         <input type="checkbox" class="subtopic-checkbox"
-                                            id="subtopic<?php echo $nivel['id_nivel']; ?>"
+                                            id="subtopic<?php echo $nivel['id_nivel']; ?>" 
                                             <?php echo in_array($nivel['id_nivel'], $nivelesCompletados) ? 'checked' : ''; ?>> 
                                             <label
                                             for="subtopic<?php echo $nivel['id_nivel']; ?>">
@@ -164,12 +166,8 @@ if ($yaComprado && $idUsuario) {
         <div class="feedback-section">
             <h2>Valoraciones</h2>
             <div class="ratings">
-                <span class="rating">
-                    <?php
-                    $estrellas = round($valoracionPromedio);
-                    echo str_repeat('⭐', $estrellas) . str_repeat('☆', 5 - $estrellas);
-                    ?>
-                </span>
+                <?= renderStarsHtml($valoracionPromedio) ?>
+                <span class="rating-number"><?= number_format($valoracionPromedio, 1) ?></span>
                 <span>(<?php echo count($comentarios); ?> valoraciones)</span>
             </div>
             <div class="comments">
@@ -177,14 +175,19 @@ if ($yaComprado && $idUsuario) {
                 <?php if ($yaComprado && $progresoActual >= 100 && !$yaComento): ?>
                     <form id="comment-form" class="comment-form" style="display: block;">
                         <input type="hidden" name="id_curso" value="<?php echo $idCurso; ?>">
-                        <label for="calificacion">Calificación:</label>
-                        <select id="calificacion" name="calificacion" required>
-                            <option value="5">⭐⭐⭐⭐⭐ Excelente</option>
-                            <option value="4">⭐⭐⭐⭐ Muy bueno</option>
-                            <option value="3">⭐⭐⭐ Bueno</option>
-                            <option value="2">⭐⭐ Regular</option>
-                            <option value="1">⭐ Malo</option>
-                        </select>
+                        <label>Calificación:</label>
+                        <div class="star-picker">
+                            <input type="radio" id="star5" name="calificacion" value="5" required>
+                            <label for="star5" title="Excelente">★</label>
+                            <input type="radio" id="star4" name="calificacion" value="4">
+                            <label for="star4" title="Muy bueno">★</label>
+                            <input type="radio" id="star3" name="calificacion" value="3">
+                            <label for="star3" title="Bueno">★</label>
+                            <input type="radio" id="star2" name="calificacion" value="2">
+                            <label for="star2" title="Regular">★</label>
+                            <input type="radio" id="star1" name="calificacion" value="1">
+                            <label for="star1" title="Malo">★</label>
+                        </div>
                         <label for="comentario">Tu comentario:</label>
                         <textarea id="comentario" name="comentario" rows="3" required></textarea>
                         <button type="submit">Enviar comentario</button>
@@ -196,30 +199,32 @@ if ($yaComprado && $idUsuario) {
                     <p class="comment-already-notice">Ya has dejado tu comentario en este curso.</p>
                 <?php endif; ?>
                 <?php foreach ($comentarios as $comentario): ?>
-    <div class="comment">
-        <div class="comment-header">
-            <div class="comment-left">
-                <img src="<?php echo htmlspecialchars($comentario['foto_avatar_url'] ?: 'Recursos/Icon.png'); ?>"
-                    alt="Foto del Usuario" class="comment-user-img">
-                <span class="comment-username"><?php echo htmlspecialchars($comentario['nombre_usuario']); ?></span>
-                <?php if (isset($comentario['calificacion'])): ?>
-                    <span class="comment-rating"><?php echo str_repeat('⭐', (int) $comentario['calificacion']); ?></span>
-                <?php endif; ?>
-            </div>
-            <span class="comment-date"><?php echo htmlspecialchars(date('d/m/Y, H:i', strtotime($comentario['fecha_comentario']))); ?></span>
-        </div>
+                    <div class="comment">
+                        <div class="comment-header">
+                            <div class="comment-left">
+                                <img src="<?php echo htmlspecialchars($comentario['foto_avatar_url'] ?: 'Recursos/Icon.png'); ?>"
+                                    alt="Foto del Usuario" class="comment-user-img">
+                                <span
+                                    class="comment-username"><?php echo htmlspecialchars($comentario['nombre_usuario']); ?></span>
+                                <?php if (isset($comentario['calificacion'])): ?>
+                                    <p class="comment-rating"><?= renderStarsHtml($comentario['calificacion']) ?></p>
+                                <?php endif; ?>
+                            </div>
+                            <span
+                                class="comment-date"><?php echo htmlspecialchars(date('d/m/Y, H:i', strtotime($comentario['fecha_comentario']))); ?></span>
+                        </div>
 
-        <?php if ($comentario['eliminado']): ?>
-            <p class="comment-text"><em>(Este comentario ha sido eliminado por el administrador)</em></p>
-        <?php else: ?>
-            <p class="comment-text"><?php echo htmlspecialchars($comentario['comentario']); ?></p>
-        <?php endif; ?>
+                        <?php if ($comentario['eliminado']): ?>
+                            <p class="comment-text"><em>(Este comentario ha sido eliminado por el administrador)</em></p>
+                        <?php else: ?>
+                            <p class="comment-text"><?php echo htmlspecialchars($comentario['comentario']); ?></p>
+                        <?php endif; ?>
 
-        <?php if ($_SESSION['user_role'] == 1 && !$comentario['eliminado']): ?>
-            <button class="delete-btn">Eliminar</button>
-        <?php endif; ?>
-    </div>
-<?php endforeach; ?>
+                        <?php if ($_SESSION['user_role'] == 1 && !$comentario['eliminado']): ?>
+                            <button class="delete-btn">Eliminar</button>
+                        <?php endif; ?>
+                    </div>
+                <?php endforeach; ?>
             </div>
         </div>
     </div>
