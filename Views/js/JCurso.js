@@ -52,7 +52,13 @@ document.addEventListener("DOMContentLoaded", function () {
               progresoFill.style.width = `${Math.round(data.progreso)}%`;
 
             if (data.progreso >= 100) {
-              location.reload();
+              const lockNotice = document.querySelector(
+                ".comment-locked-notice",
+              );
+              if (lockNotice) {
+                lockNotice.textContent =
+                  "¡Curso completado! Recarga la página para dejar tu comentario.";
+              }
             }
           }
         })
