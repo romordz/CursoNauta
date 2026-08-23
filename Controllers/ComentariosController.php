@@ -42,8 +42,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
         echo json_encode(['success' => false, 'message' => 'Datos inválidos']);
         exit;
     }
-
-    // Validación crítica: el progreso real se verifica en el servidor, no solo en el frontend
     $progresoModel = new ProgresoModel();
     $progreso = $progresoModel->obtenerProgresoActual($idUsuario, $idCurso);
 

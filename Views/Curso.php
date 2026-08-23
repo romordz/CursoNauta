@@ -196,34 +196,30 @@ if ($yaComprado && $idUsuario) {
                     <p class="comment-already-notice">Ya has dejado tu comentario en este curso.</p>
                 <?php endif; ?>
                 <?php foreach ($comentarios as $comentario): ?>
-                    <div class="comment">
-                        <div class="user-info">
-                            <img src="<?php echo htmlspecialchars($comentario['foto_avatar_url'] ?: 'Recursos/Icon.png'); ?>"
-                                alt="Foto del Usuario" class="comment-user-img">
-                            <div>
-                                <p class="comment-username"><?php echo htmlspecialchars($comentario['nombre_usuario']); ?>
-                                </p>
-                                <p class="comment-date">
-                                    <?php echo htmlspecialchars(date('d/m/Y, H:i', strtotime($comentario['fecha_comentario']))); ?>
-                                </p>
-                                <?php if (isset($comentario['calificacion'])): ?>
-                                    <p class="comment-rating"><?php echo str_repeat('⭐', (int) $comentario['calificacion']); ?>
-                                    </p>
-                                <?php endif; ?>
-                            </div>
-                        </div>
+    <div class="comment">
+        <div class="comment-header">
+            <div class="comment-left">
+                <img src="<?php echo htmlspecialchars($comentario['foto_avatar_url'] ?: 'Recursos/Icon.png'); ?>"
+                    alt="Foto del Usuario" class="comment-user-img">
+                <span class="comment-username"><?php echo htmlspecialchars($comentario['nombre_usuario']); ?></span>
+                <?php if (isset($comentario['calificacion'])): ?>
+                    <span class="comment-rating"><?php echo str_repeat('⭐', (int) $comentario['calificacion']); ?></span>
+                <?php endif; ?>
+            </div>
+            <span class="comment-date"><?php echo htmlspecialchars(date('d/m/Y, H:i', strtotime($comentario['fecha_comentario']))); ?></span>
+        </div>
 
-                        <?php if ($comentario['eliminado']): ?>
-                            <p class="comment-text"><em>(Este comentario ha sido eliminado por el administrador)</em></p>
-                        <?php else: ?>
-                            <p class="comment-text"><?php echo htmlspecialchars($comentario['comentario']); ?></p>
-                        <?php endif; ?>
+        <?php if ($comentario['eliminado']): ?>
+            <p class="comment-text"><em>(Este comentario ha sido eliminado por el administrador)</em></p>
+        <?php else: ?>
+            <p class="comment-text"><?php echo htmlspecialchars($comentario['comentario']); ?></p>
+        <?php endif; ?>
 
-                        <?php if ($_SESSION['user_role'] == 1 && !$comentario['eliminado']): ?>
-                            <button class="delete-btn">Eliminar</button>
-                        <?php endif; ?>
-                    </div>
-                <?php endforeach; ?>
+        <?php if ($_SESSION['user_role'] == 1 && !$comentario['eliminado']): ?>
+            <button class="delete-btn">Eliminar</button>
+        <?php endif; ?>
+    </div>
+<?php endforeach; ?>
             </div>
         </div>
     </div>

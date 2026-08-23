@@ -361,20 +361,20 @@ video {
     background-color: #ece7f6;
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    text-align: left;
+    align-items: stretch;
 }
 
-.comment-rating {
-    font-size: 0.9rem;
-    color: #724caf;
-    margin: 3px 0;
-}
-
-.user-info {
+.comment-header {
     display: flex;
+    justify-content: space-between;
     align-items: center;
     width: 100%;
+}
+
+.comment-left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
 
 .comment-user-img {
@@ -382,7 +382,6 @@ video {
     height: 45px;
     border-radius: 50%;
     object-fit: cover;
-    margin-right: 10px;
 }
 
 .comment-username {
@@ -391,14 +390,20 @@ video {
     color: #6a5b8f;
 }
 
+.comment-rating {
+    font-size: 0.9rem;
+    color: #724caf;
+}
+
 .comment-date {
     font-size: 0.9rem;
     color: #666;
+    white-space: nowrap;
 }
 
 .comment-text {
     width: 100%;
-    padding: 10px 0 0;
+    padding-top: 10px;
     font-size: 1rem;
     color: #333;
     text-align: left;
