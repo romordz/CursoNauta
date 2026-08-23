@@ -24,9 +24,13 @@ if ($idCurso > 0) {
     exit;
 }
 
-$idUsuario = $_SESSION['user_id'] ?? null;
-$inscripcionModel = new InscripcionModel();
-$yaComprado = $idUsuario ? $inscripcionModel->inscripcionYaRegistrada($idCurso, $idUsuario) : false;
+if ($yaComprado) {
+    $conn = (new Database())->getConnection();
+    $stmt = $conn->prepare("UPDATE inscripciones SET fecha_ultimo_acceso = NOW() WHERE id_usuario = :id_usuario AND id_curso = :id_curso");
+    $stmt->bindParam(':id_usuario', $idUsuario, PDO::PARAM_INT);
+    $stmt->bindParam(':id_curso', $idCurso, PDO::PARAM_INT);
+    $stmt->execute();
+}
 
 $progresoModel = new ProgresoModel();
 $progresoActual = 0;
@@ -61,7 +65,7 @@ if ($yaComprado) {
                     </div>
                 <?php else: ?>
                     <div class="video-locked">
-                        <p>🔒 Compra este curso para acceder al contenido.</p>
+                        <p>Compra este curso para acceder al contenido.</p>
                     </div>
                 <?php endif; ?>
             </div>
@@ -111,7 +115,7 @@ if ($yaComprado) {
             </div>
             <div class="resource-content">
                 <?php if (!$yaComprado): ?>
-                    <p>🔒 Compra este curso para acceder a los recursos.</p>
+                    <p>Compra este curso para acceder a los recursos.</p>
                 <?php else: ?>
                     <?php
                     $hayRecursos = false;
@@ -143,7 +147,6 @@ if ($yaComprado) {
             </div>
         </div>
 
-        <!-- Valoraciones y comentarios siguen igual, sin cambios -->
         <div class="feedback-section">
             <h2>Valoraciones</h2>
             <div class="ratings">
