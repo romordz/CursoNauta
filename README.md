@@ -6,7 +6,7 @@ gestión de cursos por niveles, sistema de kardex, pagos y comentarios/valoracio
 🔗 **[Ver demo en vivo](https://cursonauta-production.up.railway.app)**
 
 ![Demo de la aplicación](./docs/demo.gif)
- (./docs/demo2.gif)
+![Demo del comentar](./docs/demo2.gif)
 
 ## Stack
 - **Backend:** PHP (patrón MVC), PDO con procedimientos almacenados
@@ -28,4 +28,4 @@ gestión de cursos por niveles, sistema de kardex, pagos y comentarios/valoracio
 - Las operaciones de creación de curso están envueltas en una transacción PDO (`beginTransaction`/`commit`/`rollBack`) para garantizar consistencia si algún nivel falla al insertarse.
 
 ---
-*Proyecto educativo desarrollado como práctica de arquitectura MVC en PHP.*
+*Proyecto academico desarrollado como práctica de arquitectura MVC en PHP.*
