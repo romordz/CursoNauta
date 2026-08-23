@@ -42,7 +42,7 @@ function renderStars($rating)
         <?php foreach ($cursosMasVendidos as $curso): ?>
             <a href="index.php?page=Curso&idCurso=<?= $curso['id_curso'] ?>">
                 <div class="course-card">
-                    <img src="data:image/jpeg;base64,<?= base64_encode($curso['imagen']) ?>" alt="Imagen del Curso" class="course-img">
+                    <img src="<?= htmlspecialchars($curso['imagen_url']) ?>" alt="Imagen del Curso" class="course-img">
                     <h3><?= htmlspecialchars($curso['titulo']) ?></h3>
                     <span class="course-category"><?= htmlspecialchars($curso['nombre_categoria']) ?></span>
                     <p><?= htmlspecialchars($curso['descripcion']) ?></p>
@@ -61,7 +61,7 @@ function renderStars($rating)
         <?php foreach ($cursosRecientes as $curso): ?>
             <a href="index.php?page=Curso&idCurso=<?= $curso['id_curso'] ?>">
                 <div class="course-card">
-                    <img src="data:image/jpeg;base64,<?= base64_encode($curso['imagen']) ?>" alt="Imagen del Curso" class="course-img">
+                    <img src="<?= htmlspecialchars($curso['imagen_url']) ?>" alt="Imagen del Curso" class="course-img">
                     <h3><?= htmlspecialchars($curso['titulo']) ?></h3>
                     <span class="course-category"><?= htmlspecialchars($curso['nombre_categoria']) ?></span>
                     <p><?= htmlspecialchars($curso['descripcion']) ?></p>
@@ -80,7 +80,7 @@ function renderStars($rating)
         <?php foreach ($cursosMejorCalificados as $curso): ?>
             <a href="index.php?page=Curso&idCurso=<?= $curso['id_curso'] ?>">
                 <div class="course-card">
-                    <img src="data:image/jpeg;base64,<?= base64_encode($curso['imagen']) ?>" alt="Imagen del Curso" class="course-img">
+                    <img src="<?= htmlspecialchars($curso['imagen_url']) ?>" alt="Imagen del Curso" class="course-img">
                     <h3><?= htmlspecialchars($curso['titulo']) ?></h3>
                     <span class="course-category"><?= htmlspecialchars($curso['nombre_categoria']) ?></span>
                     <div class="stars"><?= renderStars($curso['calificacion_promedio']) ?></div>

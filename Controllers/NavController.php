@@ -32,7 +32,7 @@ class NavController {
     }
 
     public function buscarCursosDinamico($categoriaID = null, $instructorID = null, $fechaInicio = null, $fechaFin = null) {
-        $stmt = $this->db->getConnection()->prepare("CALL BuscarCursosDinamico(:categoriaID, :instructorID, :fechaInicio, :fechaFin)");
+        $stmt = $this->db->getConnection()->prepare("CALL BuscarcursosDinamico(:categoriaID, :instructorID, :fechaInicio, :fechaFin)");
     
         $stmt->bindParam(':categoriaID', $categoriaID, PDO::PARAM_INT);
         $stmt->bindParam(':instructorID', $instructorID, PDO::PARAM_INT);

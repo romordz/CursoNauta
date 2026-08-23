@@ -22,8 +22,7 @@ if ($idCurso > 0) {
 
 <div class="course-container">
 
-    <div class="course-header"
-        style="background-image: url('data:image/jpeg;base64,<?php echo base64_encode($curso['imagen']); ?>');">
+    <div class="course-header" style="background-image: url('<?php echo htmlspecialchars($curso['imagen_url']); ?>');">
         <h1 class="course-title"><?php echo htmlspecialchars($curso['titulo']); ?></h1>
         <p class="course-category">Categoría: <?php echo htmlspecialchars($curso['nombre_categoria']); ?></p>
         <p class="course-category"><strong>Creador:</strong> <?php echo htmlspecialchars($curso['nombre_creador']); ?>
@@ -79,11 +78,6 @@ if ($idCurso > 0) {
                                         $finfo = new finfo(FILEINFO_MIME_TYPE);
                                         $mime_type = $finfo->buffer($nivel['archivos']);
                                         ?>
-                                        <object
-                                            data="data:<?php echo $mime_type; ?>;base64,<?php echo base64_encode($nivel['archivos']); ?>"
-                                            type="<?php echo $mime_type; ?>" width="100%" height="300px">
-                                            <p>Tu navegador no puede mostrar este archivo.</p>
-                                        </object>
                                     </li>
                                 <?php endif; ?>
                             </ul>
@@ -99,39 +93,32 @@ if ($idCurso > 0) {
                 <span class="toggle-icon">▶</span>
             </div>
             <div class="resource-content">
-                <ul>
-                    <?php foreach ($niveles as $nivel): ?>
-                        <?php if (!empty($nivel['archivos'])): ?>
-                            <?php
-                            $finfo = new finfo(FILEINFO_MIME_TYPE);
-                            $mime_type = $finfo->buffer($nivel['archivos']);
-                            $extension = '';
-
-                            switch ($mime_type) {
-                                case 'application/pdf':
-                                    $extension = '.pdf';
-                                    break;
-                                case 'image/jpeg':
-                                    $extension = '.jpg';
-                                    break;
-                                case 'image/png':
-                                    $extension = '.png';
-                                    break;
-                                default:
-                                    $extension = '';
-                            }
-                            ?>
-                            <li>
-                                <a href="data:<?php echo $mime_type; ?>;base64,<?php echo base64_encode($nivel['archivos']); ?>"
-                                    download="Archivo_nivel_<?php echo $nivel['numero_nivel'] . $extension; ?>">
-                                    <i class="file-icon">📄</i> Descargar
-                                    <?php echo htmlspecialchars($nivel['titulo_nivel']); ?> - Nivel
-                                    <?php echo $nivel['numero_nivel']; ?>
-                                </a>
-                            </li>
-                        <?php endif; ?>
-                    <?php endforeach; ?>
-                </ul>
+                <?php
+                $hayRecursos = false;
+                foreach ($niveles as $nivel) {
+                    if (!empty($nivel['archivo_url'])) {
+                        $hayRecursos = true;
+                        break;
+                    }
+                }
+                ?>
+                <?php if ($hayRecursos): ?>
+                    <ul>
+                        <?php foreach ($niveles as $nivel): ?>
+                            <?php if (!empty($nivel['archivo_url'])): ?>
+                                <li>
+                                    <a href="<?php echo htmlspecialchars($nivel['archivo_url']); ?>" target="_blank">
+                                        <i class="file-icon">📄</i> Descargar
+                                        <?php echo htmlspecialchars($nivel['titulo_nivel']); ?> - Nivel
+                                        <?php echo $nivel['numero_nivel']; ?>
+                                    </a>
+                                </li>
+                            <?php endif; ?>
+                        <?php endforeach; ?>
+                    </ul>
+                <?php else: ?>
+                    <p>No se incluyeron recursos adicionales.</p>
+                <?php endif; ?>
             </div>
         </div>
 

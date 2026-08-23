@@ -6,14 +6,12 @@ $navController = new NavController();
 $categoriasActivas = $navController->getCategoriasActivas();
 $instructores = $navController->getInstructoresActivos();
 
-// Captura de filtros, manejando los valores como NULL si están vacíos
 $busqueda = !empty($_GET['search']) ? $_GET['search'] : null;
 $categoriaId = isset($_GET['categoria']) && $_GET['categoria'] !== '' ? intval($_GET['categoria']) : null;
 $instructorId = isset($_GET['user']) && $_GET['user'] !== '' ? intval($_GET['user']) : null;
 $fechaInicio = isset($_GET['start-date']) && $_GET['start-date'] !== '' ? $_GET['start-date'] : null;
 $fechaFin = isset($_GET['end-date']) && $_GET['end-date'] !== '' ? $_GET['end-date'] : null;
 
-// Aplicar filtros según los parámetros disponibles
 if ($busqueda) {
     $cursos = $navController->buscarCursosPorPalabraClave($busqueda);
 } elseif ($categoriaId || $instructorId || $fechaInicio || $fechaFin) {
@@ -22,7 +20,6 @@ if ($busqueda) {
     $cursos = $navController->getCursosActivos();
 }
 
-// Función para mostrar estrellas de calificación
 function renderStars($rating) {
     $stars = '';
     for ($i = 1; $i <= 5; $i++) {
@@ -98,7 +95,7 @@ function renderStars($rating) {
                 <?php foreach ($cursos as $curso): ?>
                      <a href="index.php?page=Curso&idCurso=<?= $curso['id_curso'] ?>">
                     <div class="course-card">
-                        <img src="data:image/jpeg;base64,<?= base64_encode($curso['imagen']) ?>" alt="Imagen del Curso" class="course-img">
+                        <img src="<?= htmlspecialchars($curso['imagen_url']) ?>" alt="Imagen del Curso" class="course-img">
                         <h3><?= htmlspecialchars($curso['titulo']) ?></h3>
                         <span class="course-category"><?= htmlspecialchars($curso['nombre_categoria']) ?></span>
                         <div class="stars"><?= renderStars($curso['calificacion_promedio']) ?></div>

@@ -2,7 +2,6 @@ document.addEventListener("DOMContentLoaded", function () {
   const topicButtons = document.querySelectorAll(".topic-btn");
   const subtopicsLists = document.querySelectorAll(".subtopics-list");
 
-  // Alternar la visibilidad de la lista de subtemas
   topicButtons.forEach((button) => {
     button.addEventListener("click", function () {
       const subtopicsList = this.nextElementSibling;
@@ -18,7 +17,6 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
-  // Cargar el video seleccionado en el reproductor de la izquierda
   const subtopicLinks = document.querySelectorAll(".subtopic-link");
   const video = document.getElementById("course-video");
 
