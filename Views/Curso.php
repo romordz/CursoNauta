@@ -176,12 +176,12 @@ if ($yaComprado && $idUsuario) {
         <input type="hidden" name="id_curso" value="<?php echo $idCurso; ?>">
         <label for="calificacion">Calificación:</label>
         <select id="calificacion" name="calificacion" required>
-            <option value="5">⭐⭐⭐⭐⭐</option>
-            <option value="4">⭐⭐⭐⭐</option>
-            <option value="3">⭐⭐⭐</option>
-            <option value="2">⭐⭐</option>
-            <option value="1">⭐</option>
-        </select>
+    <option value="5">⭐⭐⭐⭐⭐ Excelente</option>
+    <option value="4">⭐⭐⭐⭐ Muy bueno</option>
+    <option value="3">⭐⭐⭐ Bueno</option>
+    <option value="2">⭐⭐ Regular</option>
+    <option value="1">⭐ Malo</option>
+</select>
         <label for="comentario">Tu comentario:</label>
         <textarea id="comentario" name="comentario" rows="3" required></textarea>
         <button type="submit">Enviar comentario</button>
@@ -202,9 +202,12 @@ if ($yaComprado && $idUsuario) {
                                     : 'Recursos/Icon.png')
                             ); ?>" alt="Foto del Usuario" class="comment-user-img">
                             <div>
-                                <p class="comment-username"><?php echo htmlspecialchars($comentario['nombre_usuario']); ?></p>
-                                <p class="comment-date"><?php echo htmlspecialchars(date('d/m/Y, H:i', strtotime($comentario['fecha_comentario']))); ?></p>
-                            </div>
+    <p class="comment-username"><?php echo htmlspecialchars($comentario['nombre_usuario']); ?></p>
+    <p class="comment-date"><?php echo htmlspecialchars(date('d/m/Y, H:i', strtotime($comentario['fecha_comentario']))); ?></p>
+    <?php if (isset($comentario['calificacion'])): ?>
+        <p class="comment-rating"><?php echo str_repeat('⭐', (int) $comentario['calificacion']); ?></p>
+    <?php endif; ?>
+</div>
                         </div>
                         <?php if ($comentario['eliminado']): ?>
                             <p class="comment-text"><em>(Este comentario ha sido eliminado por el administrador)</em></p>
