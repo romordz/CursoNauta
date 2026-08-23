@@ -1,5 +1,6 @@
 <?php
 require_once 'Models/CursoModel.php';
+require_once 'Models/CloudinaryUploader.php';
 
 class CursoController
 {
@@ -60,7 +61,7 @@ class CursoController
                 $titulo_nivel = $_POST["level_title_$i"];
                 $contenido = $_POST["level_content_$i"];
 
-                $video = null;
+                $video_url = null;
                 if (isset($_FILES["level_video_$i"]['tmp_name']) && !empty($_FILES["level_video_$i"]['tmp_name'])) {
                     $tmpPath = $_FILES["level_video_$i"]['tmp_name'];
                     $allowedTypes = ['video/mp4', 'video/quicktime', 'video/x-msvideo', 'video/webm'];
@@ -70,7 +71,8 @@ class CursoController
                         throw new Exception("El archivo del nivel $i no es un video válido.");
                     }
 
-                    $video = file_get_contents($tmpPath);
+                    $uploader = new CloudinaryUploader();
+                    $video_url = $uploader->subirVideo($tmpPath);
                 }
 
                 $archivos = isset($_FILES["level_attachments_$i"]['tmp_name']) && !empty($_FILES["level_attachments_$i"]['tmp_name'])
@@ -79,7 +81,7 @@ class CursoController
 
                 $costo_nivel = isset($_POST["level_price_$i"]) ? $_POST["level_price_$i"] : 0;
 
-                $insertado = $this->cursoModel->insertarNivel($id_curso, $i, $titulo_nivel, $video, $contenido, $archivos, $costo_nivel);
+                $insertado = $this->cursoModel->insertarNivel($id_curso, $i, $titulo_nivel, $video_url, $contenido, $archivos, $costo_nivel);
 
                 if (!$insertado) {
                     throw new Exception("Error al insertar el nivel $i.");

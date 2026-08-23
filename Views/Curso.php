@@ -66,7 +66,7 @@ if ($idCurso > 0) {
                                     <input type="checkbox" class="subtopic-checkbox"
                                         id="subtopic<?php echo $nivel['id_nivel']; ?>">
                                     <label for="subtopic<?php echo $nivel['id_nivel']; ?>">
-                                        <a href="data:video/mp4;base64,<?php echo base64_encode($nivel['video']); ?>"
+                                        <a href="<?php echo htmlspecialchars($nivel['video_url']); ?>"
                                             class="subtopic-link">
                                             Ver Video de <?php echo htmlspecialchars($nivel['titulo_nivel']); ?>
                                         </a>
@@ -103,7 +103,6 @@ if ($idCurso > 0) {
                     <?php foreach ($niveles as $nivel): ?>
                         <?php if (!empty($nivel['archivos'])): ?>
                             <?php
-                            // Detectar el tipo MIME del archivo y asignar extensión adecuada
                             $finfo = new finfo(FILEINFO_MIME_TYPE);
                             $mime_type = $finfo->buffer($nivel['archivos']);
                             $extension = '';
@@ -118,7 +117,6 @@ if ($idCurso > 0) {
                                 case 'image/png':
                                     $extension = '.png';
                                     break;
-                                // Agregar más casos según el tipo de archivo
                                 default:
                                     $extension = '';
                             }

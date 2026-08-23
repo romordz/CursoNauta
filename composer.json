@@ -1,5 +1,7 @@
 {
     "require": {
-        "ext-pdo_mysql": "*"
+        "ext-pdo_mysql": "*",
+        "cloudinary/cloudinary_php": "*",
+        "vlucas/phpdotenv": "*"
     }
 }

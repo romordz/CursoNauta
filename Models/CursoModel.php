@@ -42,7 +42,7 @@ class CursoModel
         $stmt->bindParam(':id_curso', $id_curso);
         $stmt->bindParam(':numero_nivel', $numero_nivel);
         $stmt->bindParam(':titulo_nivel', $titulo_nivel);
-        $stmt->bindParam(':video', $video, PDO::PARAM_LOB);
+        $stmt->bindParam(':video', $video_url);
         $stmt->bindParam(':contenido', $contenido);
         $stmt->bindParam(':archivos', $archivos, PDO::PARAM_LOB);
         $stmt->bindParam(':costo', $costo);
