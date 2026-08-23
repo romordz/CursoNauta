@@ -1,5 +1,5 @@
 <?php
-require_once 'Models/ProgresoModel.php';
+require_once __DIR__ . '/../Models/ProgresoModel.php';
 
 session_start();
 
