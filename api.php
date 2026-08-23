@@ -17,10 +17,8 @@ switch ($_SERVER['REQUEST_METHOD']) {
             $stmt->execute();
             $response = $stmt->fetch(PDO::FETCH_ASSOC);
 
-            if ($response && isset($response['foto_avatar'])) {
-                $response['foto_avatar'] = $response['foto_avatar']
-                    ? 'data:image/jpeg;base64,' . base64_encode($response['foto_avatar'])
-                    : null;
+            if ($response && !empty($response['foto_avatar_url'])) {
+                $response['foto_avatar'] = $response['foto_avatar_url'];
             }
             unset($response['contrasena']);
         } else {
@@ -48,7 +46,6 @@ switch ($_SERVER['REQUEST_METHOD']) {
                 $fecha_nacimiento = $_POST['birthdate'];
                 $id_rol = ($_POST['role'] === 'instructor') ? 2 : 3;
 
-
                 $foto_avatar_url = null;
                 if (isset($_FILES['photo']) && $_FILES['photo']['error'] === UPLOAD_ERR_OK) {
                     $uploader = new CloudinaryUploader();
@@ -63,8 +60,8 @@ switch ($_SERVER['REQUEST_METHOD']) {
                 if ($stmt->rowCount() > 0) {
                     $response['error'] = "El correo ya está registrado. Por favor, usa otro.";
                 } else {
-                    $query = "INSERT INTO usuarios (nombre, genero, fecha_nacimiento, foto_avatar, correo, contrasena, id_rol) 
-                              VALUES (:nombre, :genero, :fecha_nacimiento, :foto_avatar, :correo, :contrasena, :id_rol)";
+                    $query = "INSERT INTO usuarios (nombre, genero, fecha_nacimiento, foto_avatar_url, correo, contrasena, id_rol) 
+          VALUES (:nombre, :genero, :fecha_nacimiento, :foto_avatar_url, :correo, :contrasena, :id_rol)";
                     $stmt = $conn->prepare($query);
                     $stmt->bindParam(':nombre', $nombre);
                     $stmt->bindParam(':genero', $genero);
@@ -102,9 +99,6 @@ switch ($_SERVER['REQUEST_METHOD']) {
             } elseif ($user && !password_verify($password, $user['contrasena'])) {
                 $response['error'] = "Contraseña incorrecta.";
             } else {
-                if (!empty($user['foto_avatar'])) {
-                    $user['foto_avatar'] = base64_encode($user['foto_avatar']);
-                }
 
                 $response['message'] = "Inicio de sesión exitoso";
                 $response['user'] = $user;
