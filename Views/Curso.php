@@ -173,25 +173,34 @@ if ($yaComprado && $idUsuario) {
             <div class="comments">
                 <h2>Comentarios</h2>
                 <?php if ($yaComprado && $progresoActual >= 100 && !$yaComento): ?>
-                    <form id="comment-form" class="comment-form" style="display: block;">
-                        <input type="hidden" name="id_curso" value="<?php echo $idCurso; ?>">
-                        <label>Calificación:</label>
-                        <div class="star-picker">
-                            <input type="radio" id="star5" name="calificacion" value="5" required>
-                            <label for="star5" title="Excelente">★</label>
-                            <input type="radio" id="star4" name="calificacion" value="4">
-                            <label for="star4" title="Muy bueno">★</label>
-                            <input type="radio" id="star3" name="calificacion" value="3">
-                            <label for="star3" title="Bueno">★</label>
-                            <input type="radio" id="star2" name="calificacion" value="2">
-                            <label for="star2" title="Regular">★</label>
-                            <input type="radio" id="star1" name="calificacion" value="1">
-                            <label for="star1" title="Malo">★</label>
-                        </div>
-                        <label for="comentario">Tu comentario:</label>
-                        <textarea id="comentario" name="comentario" rows="3" required></textarea>
-                        <button type="submit">Enviar comentario</button>
-                    </form>
+                    <form id="comment-form" class="comment-form">
+    <input type="hidden" name="id_curso" value="<?php echo $idCurso; ?>">
+
+    <div class="comment-form-row">
+        <div class="comment-form-rating">
+            <label>Calificación:</label>
+            <div class="star-picker">
+                <input type="radio" id="star5" name="calificacion" value="5" required>
+                <label for="star5" title="Excelente">★</label>
+                <input type="radio" id="star4" name="calificacion" value="4">
+                <label for="star4" title="Muy bueno">★</label>
+                <input type="radio" id="star3" name="calificacion" value="3">
+                <label for="star3" title="Bueno">★</label>
+                <input type="radio" id="star2" name="calificacion" value="2">
+                <label for="star2" title="Regular">★</label>
+                <input type="radio" id="star1" name="calificacion" value="1">
+                <label for="star1" title="Malo">★</label>
+            </div>
+        </div>
+
+        <div class="comment-form-text">
+            <label for="comentario">Tu comentario:</label>
+            <textarea id="comentario" name="comentario" required></textarea>
+        </div>
+    </div>
+
+    <button type="submit">Enviar comentario</button>
+</form>
                 <?php elseif ($yaComprado && $progresoActual < 100): ?>
                     <p class="comment-locked-notice">🔒 Solo puedes dejar un comentario cuando hayas completado el 100% del
                         curso.</p>
