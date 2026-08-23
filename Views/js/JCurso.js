@@ -102,7 +102,6 @@ document.addEventListener("DOMContentLoaded", function () {
         .then((response) => response.json())
         .then((data) => {
           if (data.success) {
-            alert("Comentario enviado con éxito.");
             location.reload();
           } else {
             alert(data.message || "Error al enviar el comentario.");
