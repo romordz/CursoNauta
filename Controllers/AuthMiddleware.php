@@ -5,7 +5,6 @@ class AuthMiddleware {
             session_start();
         }
 
-        // Verificar si la sesión está iniciada
         if (!isset($_SESSION['user_id'])) {
             echo "<script>
                     alert('Debe iniciar sesión para acceder a esta página.');
@@ -14,7 +13,6 @@ class AuthMiddleware {
             exit();
         }
 
-        // Verificar si el rol del usuario está en los roles permitidos
         if (!empty($requiredRoles) && (!isset($_SESSION['user_role']) || !in_array($_SESSION['user_role'], $requiredRoles))) {
             echo "<script>
                     alert('No tienes acceso a esta página.');

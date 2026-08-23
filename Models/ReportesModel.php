@@ -4,19 +4,18 @@ class ReportesModel {
 
     public function __construct() {
         $database = new Database();
-        $this->db = $database->getConnection(); // Obtener la conexión a la base de datos
+        $this->db = $database->getConnection();
     }
 
     public function obtenerReporteInstructores(): array {
-        $stmt = $this->db->prepare("CALL ObtenerReporteInstructores()"); // Llamamos al procedimiento
+        $stmt = $this->db->prepare("CALL ObtenerReporteInstructores()");
         $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC); // Retornamos los resultados
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    // Obtener reporte de estudiantes llamando al procedimiento almacenado
     public function obtenerReporteEstudiantes(): array {
-        $stmt = $this->db->prepare("CALL ObtenerReporteEstudiantes()"); // Llamamos al procedimiento
+        $stmt = $this->db->prepare("CALL ObtenerReporteEstudiantes()");
         $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC); // Retornamos los resultados
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 }

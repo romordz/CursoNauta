@@ -31,14 +31,12 @@ class NavController {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    // Buscar cursos con filtros dinámicos (categoría, instructor, rango de fechas)
     public function buscarCursosDinamico($categoriaID = null, $instructorID = null, $fechaInicio = null, $fechaFin = null) {
         $stmt = $this->db->getConnection()->prepare("CALL BuscarCursosDinamico(:categoriaID, :instructorID, :fechaInicio, :fechaFin)");
     
         $stmt->bindParam(':categoriaID', $categoriaID, PDO::PARAM_INT);
         $stmt->bindParam(':instructorID', $instructorID, PDO::PARAM_INT);
     
-        // Verifica si las fechas son vacías y asigna NULL en su lugar
         $fechaInicio = empty($fechaInicio) ? null : $fechaInicio;
         $fechaFin = empty($fechaFin) ? null : $fechaFin;
     
@@ -49,7 +47,6 @@ class NavController {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    // Obtener todos los cursos activos
     public function getCursosActivos() {
         $query = "SELECT * FROM cursosactivos";
         $stmt = $this->db->getConnection()->prepare($query);

@@ -48,8 +48,6 @@ class CategoriaModel
             return [];
         }
     }
-
-    // Método para actualizar el nombre y la descripción de una categoría
     public function actualizarCategoria($id_categoria, $nombre_categoria, $descripcion)
     {
         try {
@@ -64,7 +62,6 @@ class CategoriaModel
         }
     }
 
-    // Método para cambiar el estado de una categoría (activar/desactivar)
     public function cambiarEstadoCategoria($id_categoria, $nuevoEstado)
     {
         try {

@@ -43,29 +43,56 @@ class CursoController
         $id_instructor = $_SESSION['user_id'];
         $id_categoria = $_POST['course_category'];
 
-        $id_curso = $this->cursoModel->insertarCurso($titulo, $descripcion, $imagen, $costo, $niveles, $id_instructor, $id_categoria);
+        $this->cursoModel->beginTransaction();
 
-        if ($id_curso) {
+        try {
+            $id_curso = $this->cursoModel->insertarCurso($titulo, $descripcion, $imagen, $costo, $niveles, $id_instructor, $id_categoria);
+
+            if (!$id_curso) {
+                throw new Exception("Error al agregar el curso.");
+            }
+
             for ($i = 1; $i <= $niveles; $i++) {
-                $titulo_nivel = $_POST["level_title_$i"];
-                $video = isset($_FILES["level_video_$i"]['tmp_name']) && !empty($_FILES["level_video_$i"]['tmp_name'])
-                    ? file_get_contents($_FILES["level_video_$i"]['tmp_name'])
-                    : null;
+                if (empty($_POST["level_title_$i"]) || !isset($_POST["level_content_$i"])) {
+                    throw new Exception("Faltan datos en el nivel $i.");
+                }
 
+                $titulo_nivel = $_POST["level_title_$i"];
                 $contenido = $_POST["level_content_$i"];
+
+                $video = null;
+                if (isset($_FILES["level_video_$i"]['tmp_name']) && !empty($_FILES["level_video_$i"]['tmp_name'])) {
+                    $tmpPath = $_FILES["level_video_$i"]['tmp_name'];
+                    $allowedTypes = ['video/mp4', 'video/quicktime', 'video/x-msvideo', 'video/webm'];
+                    $fileType = mime_content_type($tmpPath);
+
+                    if (!in_array($fileType, $allowedTypes)) {
+                        throw new Exception("El archivo del nivel $i no es un video válido.");
+                    }
+
+                    $video = file_get_contents($tmpPath);
+                }
+
                 $archivos = isset($_FILES["level_attachments_$i"]['tmp_name']) && !empty($_FILES["level_attachments_$i"]['tmp_name'])
                     ? file_get_contents($_FILES["level_attachments_$i"]['tmp_name'])
                     : null;
 
                 $costo_nivel = isset($_POST["level_price_$i"]) ? $_POST["level_price_$i"] : 0;
 
-                $this->cursoModel->insertarNivel($id_curso, $i, $titulo_nivel, $video, $contenido, $archivos, $costo_nivel);
+                $insertado = $this->cursoModel->insertarNivel($id_curso, $i, $titulo_nivel, $video, $contenido, $archivos, $costo_nivel);
+
+                if (!$insertado) {
+                    throw new Exception("Error al insertar el nivel $i.");
+                }
             }
 
+            $this->cursoModel->commit();
             header("Location: index.php?page=Ventas");
             exit;
-        } else {
-            echo "Error al agregar el curso.";
+
+        } catch (Exception $e) {
+            $this->cursoModel->rollBack();
+            echo "Error: " . $e->getMessage();
         }
     }
 
@@ -123,71 +150,65 @@ class CursoController
     }
 
     public function editarCurso()
-{
-    $this->iniciarSesion();
+    {
+        $this->iniciarSesion();
 
-    // Debug: Verifica si el ID es válido
-    if (empty($_GET['id']) || !is_numeric($_GET['id'])) {
-        echo "Debug: ID de curso no válido.<br>";
-        exit;
-    }
-
-    $id_curso = (int) $_GET['id'];
-    echo "Debug: ID del curso recibido: $id_curso<br>";
-
-    // Debug: Verifica si se reciben los datos del formulario
-    if (!isset($_POST['course_title']) || !isset($_POST['course_description'])) {
-        echo "Debug: Datos del formulario no recibidos.<br>";
-        exit;
-    }
-
-    $titulo = $_POST['course_title'];
-    $descripcion = $_POST['course_description'];
-    $imagen = isset($_FILES['course_image']['tmp_name']) && !empty($_FILES['course_image']['tmp_name'])
-        ? file_get_contents($_FILES['course_image']['tmp_name'])
-        : null; // Enviar NULL si no se actualiza la imagen
-
-    echo "Debug: Datos del formulario - Título: $titulo, Descripción: $descripcion<br>";
-
-    $costo = $_POST['course_price'];
-    $id_categoria = $_POST['course_category'];
-
-    // Debug: Verifica antes de actualizar
-    echo "Debug: Preparando para actualizar el curso.<br>";
-
-    $resultado = $this->cursoModel->actualizarCurso($id_curso, $titulo, $descripcion, $imagen, $costo, $id_categoria);
-
-    // Debug: Resultado de la actualización
-    if ($resultado) {
-        echo "Debug: Curso actualizado exitosamente.<br>";
-    } else {
-        echo "Debug: Falló la actualización del curso.<br>";
-        exit;
-    }
-
-    // Debug: Iteración sobre niveles
-    $niveles = (int) $_POST['levels'];
-    echo "Debug: Número de niveles a actualizar: $niveles<br>";
-    for ($i = 1; $i <= $niveles; $i++) {
-        echo "Debug: Procesando nivel $i<br>";
-        if (!isset($_POST["level_title_$i"]) || !isset($_POST["level_content_$i"])) {
-            echo "Debug: Datos faltantes para el nivel $i<br>";
-            continue;
+        if (empty($_GET['id']) || !is_numeric($_GET['id'])) {
+            echo "Debug: ID de curso no válido.<br>";
+            exit;
         }
-        $id_nivel = $_POST["level_id_$i"];
-        $titulo_nivel = $_POST["level_title_$i"];
-        $contenido = $_POST["level_content_$i"];
-        $costo_nivel = $_POST["level_price_$i"];
 
-        echo "Debug: Nivel $i - Título: $titulo_nivel, Contenido: $contenido, Costo: $costo_nivel<br>";
+        $id_curso = (int) $_GET['id'];
+        echo "Debug: ID del curso recibido: $id_curso<br>";
 
-        $this->cursoModel->actualizarNivel($id_nivel, $titulo_nivel, $contenido, $costo_nivel);
+        if (!isset($_POST['course_title']) || !isset($_POST['course_description'])) {
+            echo "Debug: Datos del formulario no recibidos.<br>";
+            exit;
+        }
+
+        $titulo = $_POST['course_title'];
+        $descripcion = $_POST['course_description'];
+        $imagen = isset($_FILES['course_image']['tmp_name']) && !empty($_FILES['course_image']['tmp_name'])
+            ? file_get_contents($_FILES['course_image']['tmp_name'])
+            : null;
+
+        echo "Debug: Datos del formulario - Título: $titulo, Descripción: $descripcion<br>";
+
+        $costo = $_POST['course_price'];
+        $id_categoria = $_POST['course_category'];
+
+        echo "Debug: Preparando para actualizar el curso.<br>";
+
+        $resultado = $this->cursoModel->actualizarCurso($id_curso, $titulo, $descripcion, $imagen, $costo, $id_categoria);
+
+        if ($resultado) {
+            echo "Debug: Curso actualizado exitosamente.<br>";
+        } else {
+            echo "Debug: Falló la actualización del curso.<br>";
+            exit;
+        }
+
+        $niveles = (int) $_POST['levels'];
+        echo "Debug: Número de niveles a actualizar: $niveles<br>";
+        for ($i = 1; $i <= $niveles; $i++) {
+            echo "Debug: Procesando nivel $i<br>";
+            if (!isset($_POST["level_title_$i"]) || !isset($_POST["level_content_$i"])) {
+                echo "Debug: Datos faltantes para el nivel $i<br>";
+                continue;
+            }
+            $id_nivel = $_POST["level_id_$i"];
+            $titulo_nivel = $_POST["level_title_$i"];
+            $contenido = $_POST["level_content_$i"];
+            $costo_nivel = $_POST["level_price_$i"];
+
+            echo "Debug: Nivel $i - Título: $titulo_nivel, Contenido: $contenido, Costo: $costo_nivel<br>";
+
+            $this->cursoModel->actualizarNivel($id_nivel, $titulo_nivel, $contenido, $costo_nivel);
+        }
+
+        echo '<script>window.location.href = "index.php?page=Ventas";</script>';
+        exit;
     }
-
-    // Redirige después de la actualización
-    echo '<script>window.location.href = "index.php?page=Ventas";</script>';
-    exit;
-}
 
 }
 

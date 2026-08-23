@@ -1,4 +1,3 @@
-
 function generateLevelFields() {
     const levels = document.getElementById("levels").value;
     const levelContainer = document.getElementById("level-container");
@@ -39,6 +38,7 @@ function generateLevelFields() {
         videoInput.type = "file";
         videoInput.name = `level_video_${i}`;
         videoInput.id = `level-video-${i}`;
+        videoInput.accept = "video/*";
         levelDiv.appendChild(videoInput);
 
         const contentLabel = document.createElement("label");
@@ -53,7 +53,6 @@ function generateLevelFields() {
         contentInput.style.height = "100px";
         levelDiv.appendChild(contentInput);
 
-        // Agregar campo para archivos adicionales
         const attachmentsLabel = document.createElement("label");
         attachmentsLabel.setAttribute("for", `level-attachments-${i}`);
         attachmentsLabel.innerText = "Archivo adicional (PDF, imagen, etc.):";
@@ -61,8 +60,9 @@ function generateLevelFields() {
 
         const attachmentsInput = document.createElement("input");
         attachmentsInput.type = "file";
-        attachmentsInput.name = `level_attachments_${i}`; // Cambiado para solo un archivo
+        attachmentsInput.name = `level_attachments_${i}`;
         attachmentsInput.id = `level-attachments-${i}`;
+        attachmentsInput.accept = ".pdf,.doc,.docx,image/*";
         attachmentsInput.style.width = "100%";
         levelDiv.appendChild(attachmentsInput);
         

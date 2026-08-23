@@ -24,6 +24,4 @@ class UsuarioModel {
         $stmt->bindParam(':nuevoEstado', $nuevoEstado, PDO::PARAM_BOOL);
         return $stmt->execute();
     }
-    
-
 }

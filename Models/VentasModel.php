@@ -81,7 +81,6 @@ class VentasModel
                   LEFT JOIN ventas v ON c.id_curso = v.id_curso
                   WHERE c.id_instructor = :userId";
 
-        // Aplicar filtros
         if (!empty($filtros['start_date'])) {
             $query .= " AND c.fecha_creacion >= :start_date";
         }
@@ -100,7 +99,6 @@ class VentasModel
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(':userId', $userId, PDO::PARAM_INT);
 
-        // Asignar parámetros de filtro
         if (!empty($filtros['start_date'])) {
             $stmt->bindParam(':start_date', $filtros['start_date']);
         }

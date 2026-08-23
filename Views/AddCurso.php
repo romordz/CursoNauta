@@ -4,26 +4,21 @@
 
 <?php include 'Views/Parciales/Nav.php'; ?>
 
-<!------------ SECCION DE OBTENER CATEGORIAS PARA MOSTRAR --------------->
 <?php
 require_once 'Models/CategoriaModel.php';
 require_once 'Controllers/CategoriaController.php';
 
-// Instanciamos el controlador
 $controller = new CategoriaController();
 
-// Obtenemos las categorías
 $categorias = $controller->obtenerCategorias();
 ?>
 
 
-<!-- Agregar -->
 <div class="add-courses-page">
     <div class="container">
         <h2>Agregar Curso</h2>
         <form id="course-form" action="index.php?page=CurC" method="POST" enctype="multipart/form-data">
             <input type="hidden" name="action" value="agregarCurso">
-            <!-- Contenedor de Información General -->
             <div class="general-info">
                 <div class="row">
                     <div class="field">
@@ -69,11 +64,8 @@ $categorias = $controller->obtenerCategorias();
                 <label for="course-description">Descripción general:</label>
                 <textarea id="course-description" name="course_description" rows="3"></textarea>
             </div>
-
-            <!-- Contenedor de Niveles -->
             <div id="level-container" class="level-container"></div>
 
-            <!-- Botón de envío -->
             <button type="submit">Guardar Curso</button>
         </form>
     </div>
