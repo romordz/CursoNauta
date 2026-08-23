@@ -6,6 +6,7 @@
 require_once 'Controllers/CursoController.php';
 require_once 'Models/InscripcionModel.php';
 require_once 'Models/ProgresoModel.php';
+require_once 'Controllers/ComentariosController.php';
 
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
@@ -42,6 +43,12 @@ $nivelesCompletados = [];
 if ($yaComprado) {
     $progresoActual = $progresoModel->obtenerProgresoActual($idUsuario, $idCurso);
     $nivelesCompletados = $progresoModel->obtenerNivelesCompletados($idUsuario, $idCurso);
+}
+$yaComento = false;
+if ($yaComprado && $idUsuario) {
+    $comentariosController = new ComentariosController();
+    $miComentario = $comentariosController->mostrarComentario($idCurso, $idUsuario);
+    $yaComento = !empty($miComentario);
 }
 ?>
 
@@ -164,9 +171,26 @@ if ($yaComprado) {
             </div>
             <div class="comments">
                 <h2>Comentarios</h2>
-                <?php if ($yaComprado && $progresoActual < 100): ?>
-        <p class="comment-locked-notice">🔒 Solo puedes dejar un comentario cuando hayas completado el 100% del curso.</p>
-    <?php endif; ?>
+                <?php if ($yaComprado && $progresoActual >= 100 && !$yaComento): ?>
+    <form id="comment-form" class="comment-form" style="display: block;">
+        <input type="hidden" name="id_curso" value="<?php echo $idCurso; ?>">
+        <label for="calificacion">Calificación:</label>
+        <select id="calificacion" name="calificacion" required>
+            <option value="5">⭐⭐⭐⭐⭐</option>
+            <option value="4">⭐⭐⭐⭐</option>
+            <option value="3">⭐⭐⭐</option>
+            <option value="2">⭐⭐</option>
+            <option value="1">⭐</option>
+        </select>
+        <label for="comentario">Tu comentario:</label>
+        <textarea id="comentario" name="comentario" rows="3" required></textarea>
+        <button type="submit">Enviar comentario</button>
+    </form>
+<?php elseif ($yaComprado && $progresoActual < 100): ?>
+    <p class="comment-locked-notice">🔒 Solo puedes dejar un comentario cuando hayas completado el 100% del curso.</p>
+<?php elseif ($yaComento): ?>
+    <p class="comment-already-notice">Ya has dejado tu comentario en este curso.</p>
+<?php endif; ?>
                 <?php foreach ($comentarios as $comentario): ?>
                     <div class="comment">
                         <div class="user-info">

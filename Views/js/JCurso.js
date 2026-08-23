@@ -50,6 +50,10 @@ document.addEventListener("DOMContentLoaded", function () {
               progresoTexto.textContent = `Tu progreso: ${Math.round(data.progreso)}%`;
             if (progresoFill)
               progresoFill.style.width = `${Math.round(data.progreso)}%`;
+
+            if (data.progreso >= 100) {
+              location.reload();
+            }
           }
         })
         .catch((error) =>
@@ -73,6 +77,32 @@ document.addEventListener("DOMContentLoaded", function () {
         content.style.display = "block";
         icon.style.transform = "rotate(90deg)";
       }
+    });
+  }
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+  const commentForm = document.getElementById("comment-form");
+  if (commentForm) {
+    commentForm.addEventListener("submit", function (e) {
+      e.preventDefault();
+      const formData = new FormData(this);
+      formData.append("action", "enviarComentario");
+
+      fetch("Controllers/ComentariosController.php", {
+        method: "POST",
+        body: formData,
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.success) {
+            alert("Comentario enviado con éxito.");
+            location.reload();
+          } else {
+            alert(data.message || "Error al enviar el comentario.");
+          }
+        })
+        .catch((error) => console.error("Error:", error));
     });
   }
 });
