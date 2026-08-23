@@ -27,13 +27,7 @@ document.addEventListener("DOMContentLoaded", function () {
       document.getElementById("fecha_nacimiento").value = data.fecha_nacimiento;
 
       const profilePic = document.getElementById("profile-pic");
-      if (data.foto_avatar) {
-        profilePic.src = data.foto_avatar.startsWith("data:image")
-          ? data.foto_avatar
-          : "data:image/jpeg;base64," + data.foto_avatar;
-      } else {
-        profilePic.src = "Recursos/Perfil.jpg";
-      }
+      profilePic.src = data.foto_avatar_url || "Recursos/Perfil.jpg";
     })
     .catch((error) => {
       console.error("Error al obtener los datos del perfil:", error);
@@ -84,7 +78,6 @@ document
     }
 
     if (contrasena.trim() === "") {
-
     } else {
       if (contrasena.length < 8) {
         errorMessages.push("La contraseña debe tener al menos 8 caracteres.");

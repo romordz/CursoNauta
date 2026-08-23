@@ -9,12 +9,12 @@ include 'Controllers/MensajesController.php';
 <div class="container">
     <!-- Sidebar para los instructores -->
     <aside class="sidebar">
-        <h2>Instructores</h2>
+        <h2><?= $_SESSION['user_role'] == 2 ? 'Estudiantes' : 'Instructores' ?></h2>
         <ul>
             <?php foreach ($instructores as $instructor): ?>
                 <li>
                     <a href="index.php?page=Mensajes&user_id=<?= $instructor['idUsuario'] ?>">
-                        <img src="<?= strpos($mensaje['foto_avatar'], 'data:image/') === 0 ? $mensaje['foto_avatar'] : 'data:image/jpeg;base64,' . base64_encode($mensaje['foto_avatar']) ?>"
+                        <img src="<?= htmlspecialchars($instructor['foto_avatar_url'] ?: 'Views/Recursos/Perfil.jpg') ?>"
                             alt="<?= htmlspecialchars($instructor['nombre']) ?>" class="instructor-img">
                         <span><?= htmlspecialchars($instructor['nombre']) ?></span>
                     </a>
