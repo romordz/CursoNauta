@@ -91,6 +91,12 @@
     gap: 20px;
 }
 
+.course-grid > a {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
 .course-card {
     background-color: #ffffff;
     border-radius: 15px;
@@ -112,6 +118,7 @@
     border-radius: 15px;
     margin-bottom: 15px;
 }
+
 
 .course-card h3 {
     font-size: 1.6rem;

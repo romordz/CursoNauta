@@ -1,6 +1,3 @@
-
-
-
 /*--------------------------PRESENTACIÓN--------------------------- */
 .hero {
     background: radial-gradient(circle, #ffffff, #e0e0e0); /* Degradado blanco a gris claro */
@@ -69,9 +66,11 @@ a{
 
 /* -----Tarjetas de los cursos----- */
 .course-card {
-    background-color: #ffffff; /* Blanco */
+    position: relative;
+    z-index: 1;
+    background-color: #ffffff;
     border-radius: 15px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra más pronunciada */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     padding: 20px;
     text-align: left;
     transition: transform 0.2s, background-color 0.2s;
@@ -79,7 +78,8 @@ a{
 
 .course-card:hover {
     transform: scale(1.05);
-    background-color: #cacaca; /* Gris muy claro */
+    background-color: #cacaca;
+    z-index: 10;
 }
 
 .course-img {
@@ -158,5 +158,3 @@ a{
     right: 10px;
 }
 /*-------------------------------------------------------------- */
-
-

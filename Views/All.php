@@ -104,13 +104,12 @@ function renderStars($rating) {
                         <p>Costo: $<?= htmlspecialchars(number_format($curso['costo'], 2)) ?></p>
                         <p><?= htmlspecialchars($curso['descripcion']) ?></p>
                     </div>
+                    </a>
                 <?php endforeach; ?>
             <?php else: ?>
                 <p>No se encontraron cursos con los filtros seleccionados.</p>
             <?php endif; ?>
         </div>
     </section>
-
 </section>
-
 <?php include 'Views/Parciales/Footer.php'; ?>
