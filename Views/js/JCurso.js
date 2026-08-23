@@ -25,7 +25,13 @@ document.addEventListener("DOMContentLoaded", function () {
       video.src = this.getAttribute("href");
       video.load();
       video.play();
-      this.previousElementSibling.checked = true;
+
+      const label = this.closest("label");
+      if (label) {
+        const checkboxId = label.getAttribute("for");
+        const checkbox = document.getElementById(checkboxId);
+        if (checkbox) checkbox.checked = true;
+      }
 
       const idNivel = this.getAttribute("data-id-nivel");
       const idCurso = video.getAttribute("data-id-curso");
@@ -33,18 +39,22 @@ document.addEventListener("DOMContentLoaded", function () {
       fetch("Controllers/ProgresoController.php", {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: `action=marcarNivel&id_nivel=${idNivel}&id_curso=${idCurso}`
+        body: `action=marcarNivel&id_nivel=${idNivel}&id_curso=${idCurso}`,
       })
-        .then(response => response.json())
-        .then(data => {
+        .then((response) => response.json())
+        .then((data) => {
           if (data.success) {
             const progresoTexto = document.querySelector(".video-section h4");
             const progresoFill = document.querySelector(".progress-fill");
-            if (progresoTexto) progresoTexto.textContent = `Tu progreso: ${Math.round(data.progreso)}%`;
-            if (progresoFill) progresoFill.style.width = `${Math.round(data.progreso)}%`;
+            if (progresoTexto)
+              progresoTexto.textContent = `Tu progreso: ${Math.round(data.progreso)}%`;
+            if (progresoFill)
+              progresoFill.style.width = `${Math.round(data.progreso)}%`;
           }
         })
-        .catch(error => console.error("Error al actualizar progreso:", error));
+        .catch((error) =>
+          console.error("Error al actualizar progreso:", error),
+        );
     });
   });
 });

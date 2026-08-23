@@ -164,6 +164,9 @@ if ($yaComprado) {
             </div>
             <div class="comments">
                 <h2>Comentarios</h2>
+                <?php if ($yaComprado && $progresoActual < 100): ?>
+        <p class="comment-locked-notice">🔒 Solo puedes dejar un comentario cuando hayas completado el 100% del curso.</p>
+    <?php endif; ?>
                 <?php foreach ($comentarios as $comentario): ?>
                     <div class="comment">
                         <div class="user-info">
