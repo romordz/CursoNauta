@@ -1,61 +1,38 @@
 <?php
 session_start();
+include_once 'Models/Database.php';
+
 $error_correo = '';
 $error_contrasena = '';
+$error_desactivada = '';
 $correo_valor = '';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $correo = $_POST['correo'];
     $password = $_POST['contrasena'];
-
     $correo_valor = $correo;
 
-    $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
-    $url = $protocol . '://' . $_SERVER['HTTP_HOST'] . '/api.php';
+    $database = new Database();
+    $conn = $database->getConnection();
 
-    $data = array(
-        'accion' => 'inicio_sesion',
-        'correo' => $correo,
-        'contrasena' => $password
-    );
+    $query = "SELECT * FROM usuarios WHERE correo = :correo";
+    $stmt = $conn->prepare($query);
+    $stmt->bindParam(':correo', $correo);
+    $stmt->execute();
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    // Configurar cURL para la solicitud POST
-    $options = array(
-        CURLOPT_URL => $url,
-        CURLOPT_POST => true,
-        CURLOPT_RETURNTRANSFER => true,
-        CURLOPT_POSTFIELDS => http_build_query($data)
-    );
-
-    $ch = curl_init();
-    curl_setopt_array($ch, $options);
-    $response = curl_exec($ch);
-
-    // Verificar si cURL tuvo algún error
-    if ($response === false) {
-        echo "Error de cURL: " . curl_error($ch);
-    }
-
-    curl_close($ch);
-
-    // Decodificar la respuesta de la API
-    $response = json_decode($response, true);
-
-    // Verificar el resultado del inicio de sesión
-    if (isset($response['error'])) {
-        if ($response['error'] === "El correo no está registrado.") {
-            $error_correo = $response['error'];
-        } elseif ($response['error'] === "La cuenta está desactivada. Contacta al administrador.") {
-            $error_desactivada = $response['error'];
-        } elseif ($response['error'] === "Contraseña incorrecta.") {
-            $error_contrasena = $response['error'];
-        }
-    } elseif (isset($response['message'])) {
-        $_SESSION['user_id'] = $response['user']['idUsuario'];
-        $_SESSION['user_name'] = $response['user']['nombre'];
-        $_SESSION['user_role'] = $response['user']['id_rol'];
-        if (!empty($response['user']['foto_avatar'])) {
-            $_SESSION['user_img'] = 'data:image/jpeg;base64,' . $response['user']['foto_avatar'];
+    if (!$user) {
+        $error_correo = "El correo no está registrado.";
+    } elseif ($user['activo'] == 0) {
+        $error_desactivada = "La cuenta está desactivada. Contacta al administrador.";
+    } elseif (!password_verify($password, $user['contrasena'])) {
+        $error_contrasena = "Contraseña incorrecta.";
+    } else {
+        $_SESSION['user_id'] = $user['idUsuario'];
+        $_SESSION['user_name'] = $user['nombre'];
+        $_SESSION['user_role'] = $user['id_rol'];
+        if (!empty($user['foto_avatar'])) {
+            $_SESSION['user_img'] = 'data:image/jpeg;base64,' . base64_encode($user['foto_avatar']);
         } else {
             $_SESSION['user_img'] = 'Views/Recursos/Perfil.jpg';
         }
