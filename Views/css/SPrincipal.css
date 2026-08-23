@@ -1,7 +1,7 @@
 /*--------------------------PRESENTACIÓN--------------------------- */
 .hero {
-    background: radial-gradient(circle, #ffffff, #e0e0e0); /* Degradado blanco a gris claro */
-    color: #333; /* Gris oscuro */
+    background: radial-gradient(circle, #ffffff, #e0e0e0);
+    color: #333;
     text-align: center;
     padding: 100px 20px;
 }
@@ -9,18 +9,18 @@
 .hero h2 {
     font-size: 3rem;
     margin-bottom: 10px;
-    color: #6a5b8f; /* Morado suave */
+    color: #6a5b8f;
 }
 
 .hero p {
     font-size: 1.4rem;
     margin-bottom: 20px;
-    color: #666; /* Gris medio */
+    color: #666;
 }
 
 .hero .btn {
-    background-color: #6a5b8f; /* Morado suave */
-    color: #ffffff; /* Blanco */
+    background-color: #6a5b8f;
+    color: #ffffff;
     padding: 10px 20px;
     text-decoration: none;
     font-size: 1.2rem;
@@ -29,7 +29,7 @@
 }
 
 .hero .btn:hover {
-    background-color: #8c76b0; /* Morado más claro */
+    background-color: #8c76b0;
 }
 /*-------------------------------------------------------------- */
 
@@ -37,10 +37,9 @@
 .courses-carousel {
     position: relative;
     padding: 40px 0;
-    background-color: #ffffff; /* Blanco */
+    background-color: #ffffff;
     text-align: center;
-    width: 100%; /* Asegura que la sección cubra todo el ancho de la pantalla */
-    overflow: hidden;
+    width: 100%;
 }
 
 a{
@@ -50,16 +49,16 @@ a{
 .courses-carousel h2 {
     font-size: 2.5rem;
     margin-bottom: 20px;
-    color: #6a5b8f; /* Morado suave */
+    color: #6a5b8f;
     font-family: 'Poppins', sans-serif;
 }
 
 /* -----Contenedor de los cursos----- */
 .course-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr); /* Mostrar 3 columnas */
+    grid-template-columns: repeat(3, 1fr);
     gap: 20px;
-    padding: 0 20px; /* Añade espacio lateral */
+    padding: 0 20px;
     overflow: hidden;
 }
 
@@ -92,14 +91,14 @@ a{
 
 .course-card h3 {
     font-size: 1.6rem;
-    color: #6a5b8f; /* Morado suave */
+    color: #6a5b8f;
     margin-bottom: 10px;
     font-family: 'Poppins', sans-serif;
 }
 
 .stars {
     font-size: 1.3rem;
-    color: #6a5b8f; /* Morado suave */
+    color: #6a5b8f;
     margin-bottom: 10px;
 }
 
@@ -115,8 +114,8 @@ a{
 
 .course-category {
     display: inline-block;
-    background-color: #d0d0d0; /* Gris claro */
-    color: #6a5b8f; /* Morado suave */
+    background-color: #d0d0d0;
+    color: #6a5b8f;
     font-size: 0.9rem;
     padding: 5px 10px;
     border-radius: 15px;
@@ -126,15 +125,15 @@ a{
 }
 
 .course-category:hover {
-    background-color: #c0c0c0; /* Gris claro más oscuro */
+    background-color: #c0c0c0;
 }
 
 .carousel-arrow {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    background-color: rgba(0, 0, 0, 0.6); /* Fondo negro semi-transparente */
-    color: #ffffff; /* Blanco */
+    background-color: rgba(0, 0, 0, 0.6);
+    color: #ffffff;
     border: none;
     padding: 10px 15px;
     font-size: 2rem;
@@ -142,12 +141,12 @@ a{
     z-index: 1;
     opacity: 0.8;
     transition: opacity 0.3s, background-color 0.3s;
-    border-radius: 50%; /* Forma circular para las flechas */
+    border-radius: 50%;
 }
 
 .carousel-arrow:hover {
     opacity: 1;
-    background-color: rgba(0, 0, 0, 0.8); /* Más oscuro al hacer hover */
+    background-color: rgba(0, 0, 0, 0.8);
 }
 
 .left-arrow {
