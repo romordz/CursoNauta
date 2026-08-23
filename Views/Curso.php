@@ -56,7 +56,8 @@ if ($yaComprado && $idUsuario) {
     <div class="course-header" style="background-image: url('<?php echo htmlspecialchars($curso['imagen_url']); ?>');">
         <h1 class="course-title"><?php echo htmlspecialchars($curso['titulo']); ?></h1>
         <p class="course-category">Categoría: <?php echo htmlspecialchars($curso['nombre_categoria']); ?></p>
-        <p class="course-category"><strong>Creador:</strong> <?php echo htmlspecialchars($curso['nombre_creador']); ?></p>
+        <p class="course-category"><strong>Creador:</strong> <?php echo htmlspecialchars($curso['nombre_creador']); ?>
+        </p>
         <a href="index.php?page=Mensajes&user_id=<?php echo $curso['id_instructor']; ?>"
             title="Enviar mensaje al creador" style="margin-left: 5px; font-size: 1.5em;">📧</a>
     </div>
@@ -101,15 +102,17 @@ if ($yaComprado && $idUsuario) {
                                     <?php if ($yaComprado): ?>
                                         <input type="checkbox" class="subtopic-checkbox"
                                             id="subtopic<?php echo $nivel['id_nivel']; ?>"
-                                            <?php echo in_array($nivel['id_nivel'], $nivelesCompletados) ? 'checked' : ''; ?>>
-                                        <label for="subtopic<?php echo $nivel['id_nivel']; ?>">
-                                            <a href="<?php echo htmlspecialchars($nivel['video_url']); ?>"
-                                                class="subtopic-link" data-id-nivel="<?php echo $nivel['id_nivel']; ?>">
-                                                Ver Video de <?php echo htmlspecialchars($nivel['titulo_nivel']); ?>
-                                            </a>
+                                            <?php echo in_array($nivel['id_nivel'], $nivelesCompletados) ? 'checked' : ''; ?>> 
+                                            <label
+                                            for="subtopic<?php echo $nivel['id_nivel']; ?>">
+                                        <a href="<?php echo htmlspecialchars($nivel['video_url']); ?>" class="subtopic-link"
+                                            data-id-nivel="<?php echo $nivel['id_nivel']; ?>">
+                                            Ver Video de <?php echo htmlspecialchars($nivel['titulo_nivel']); ?>
+                                        </a>
                                         </label>
                                     <?php else: ?>
-                                        <span class="locked-item">🔒 Ver Video de <?php echo htmlspecialchars($nivel['titulo_nivel']); ?></span>
+                                        <span class="locked-item">🔒 Ver Video de
+                                            <?php echo htmlspecialchars($nivel['titulo_nivel']); ?></span>
                                     <?php endif; ?>
                                 </li>
                             </ul>
@@ -172,48 +175,50 @@ if ($yaComprado && $idUsuario) {
             <div class="comments">
                 <h2>Comentarios</h2>
                 <?php if ($yaComprado && $progresoActual >= 100 && !$yaComento): ?>
-    <form id="comment-form" class="comment-form" style="display: block;">
-        <input type="hidden" name="id_curso" value="<?php echo $idCurso; ?>">
-        <label for="calificacion">Calificación:</label>
-        <select id="calificacion" name="calificacion" required>
-    <option value="5">⭐⭐⭐⭐⭐ Excelente</option>
-    <option value="4">⭐⭐⭐⭐ Muy bueno</option>
-    <option value="3">⭐⭐⭐ Bueno</option>
-    <option value="2">⭐⭐ Regular</option>
-    <option value="1">⭐ Malo</option>
-</select>
-        <label for="comentario">Tu comentario:</label>
-        <textarea id="comentario" name="comentario" rows="3" required></textarea>
-        <button type="submit">Enviar comentario</button>
-    </form>
-<?php elseif ($yaComprado && $progresoActual < 100): ?>
-    <p class="comment-locked-notice">🔒 Solo puedes dejar un comentario cuando hayas completado el 100% del curso.</p>
-<?php elseif ($yaComento): ?>
-    <p class="comment-already-notice">Ya has dejado tu comentario en este curso.</p>
-<?php endif; ?>
+                    <form id="comment-form" class="comment-form" style="display: block;">
+                        <input type="hidden" name="id_curso" value="<?php echo $idCurso; ?>">
+                        <label for="calificacion">Calificación:</label>
+                        <select id="calificacion" name="calificacion" required>
+                            <option value="5">⭐⭐⭐⭐⭐ Excelente</option>
+                            <option value="4">⭐⭐⭐⭐ Muy bueno</option>
+                            <option value="3">⭐⭐⭐ Bueno</option>
+                            <option value="2">⭐⭐ Regular</option>
+                            <option value="1">⭐ Malo</option>
+                        </select>
+                        <label for="comentario">Tu comentario:</label>
+                        <textarea id="comentario" name="comentario" rows="3" required></textarea>
+                        <button type="submit">Enviar comentario</button>
+                    </form>
+                <?php elseif ($yaComprado && $progresoActual < 100): ?>
+                    <p class="comment-locked-notice">🔒 Solo puedes dejar un comentario cuando hayas completado el 100% del
+                        curso.</p>
+                <?php elseif ($yaComento): ?>
+                    <p class="comment-already-notice">Ya has dejado tu comentario en este curso.</p>
+                <?php endif; ?>
                 <?php foreach ($comentarios as $comentario): ?>
                     <div class="comment">
                         <div class="user-info">
-                            <img src="<?php echo htmlspecialchars(
-                                strpos($comentario['foto_avatar'], 'data:image/') === 0
-                                ? $comentario['foto_avatar']
-                                : ($comentario['foto_avatar']
-                                    ? 'data:image/jpeg;base64,' . base64_encode($comentario['foto_avatar'])
-                                    : 'Recursos/Icon.png')
-                            ); ?>" alt="Foto del Usuario" class="comment-user-img">
+                            <img src="<?php echo htmlspecialchars($comentario['foto_avatar_url'] ?: 'Recursos/Icon.png'); ?>"
+                                alt="Foto del Usuario" class="comment-user-img">
                             <div>
-    <p class="comment-username"><?php echo htmlspecialchars($comentario['nombre_usuario']); ?></p>
-    <p class="comment-date"><?php echo htmlspecialchars(date('d/m/Y, H:i', strtotime($comentario['fecha_comentario']))); ?></p>
-    <?php if (isset($comentario['calificacion'])): ?>
-        <p class="comment-rating"><?php echo str_repeat('⭐', (int) $comentario['calificacion']); ?></p>
-    <?php endif; ?>
-</div>
+                                <p class="comment-username"><?php echo htmlspecialchars($comentario['nombre_usuario']); ?>
+                                </p>
+                                <p class="comment-date">
+                                    <?php echo htmlspecialchars(date('d/m/Y, H:i', strtotime($comentario['fecha_comentario']))); ?>
+                                </p>
+                                <?php if (isset($comentario['calificacion'])): ?>
+                                    <p class="comment-rating"><?php echo str_repeat('⭐', (int) $comentario['calificacion']); ?>
+                                    </p>
+                                <?php endif; ?>
+                            </div>
                         </div>
+
                         <?php if ($comentario['eliminado']): ?>
                             <p class="comment-text"><em>(Este comentario ha sido eliminado por el administrador)</em></p>
                         <?php else: ?>
                             <p class="comment-text"><?php echo htmlspecialchars($comentario['comentario']); ?></p>
                         <?php endif; ?>
+
                         <?php if ($_SESSION['user_role'] == 1 && !$comentario['eliminado']): ?>
                             <button class="delete-btn">Eliminar</button>
                         <?php endif; ?>

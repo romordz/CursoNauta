@@ -349,8 +349,14 @@ video {
 }
 
 .comment {
-    border-radius: 5px;
-    margin-bottom: 10px;
+    padding: 15px;
+    margin-bottom: 12px;
+    border-radius: 8px;
+    background-color: #ece7f6;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
 }
 
 .comment-rating {
@@ -362,6 +368,7 @@ video {
 .user-info {
     display: flex;
     align-items: center;
+    width: 100%;
 }
 
 .comment-user-img {
@@ -375,19 +382,25 @@ video {
 .comment-username {
     font-size: 1rem;
     font-weight: bold;
-    color: #6a5b8f; 
+    color: #6a5b8f;
 }
 
 .comment-date {
     font-size: 0.9rem;
-    color: #666; 
+    color: #666;
+}
+
+.comment-rating {
+    font-size: 0.9rem;
+    margin: 2px 0 0;
 }
 
 .comment-text {
-    flex-grow: 1;
-    padding: 0 20px;
+    width: 100%;
+    padding: 10px 0 0;
     font-size: 1rem;
-    color: #333; 
+    color: #333;
+    text-align: left;
 }
 
 .delete-btn {
@@ -397,6 +410,8 @@ video {
     padding: 5px 10px;
     border-radius: 5px;
     cursor: pointer;
+    margin-top: 10px;
+    align-self: flex-end;
 }
 
 .delete-btn:hover {

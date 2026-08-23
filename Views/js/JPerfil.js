@@ -83,8 +83,8 @@ document
       errorMessages.push("Por favor, introduce un correo electrónico válido.");
     }
 
-    if (contrasena.trim() !== "") {
-      errorMessages.push("La contraseña no puede estar vacía.");
+    if (contrasena.trim() === "") {
+
     } else {
       if (contrasena.length < 8) {
         errorMessages.push("La contraseña debe tener al menos 8 caracteres.");
