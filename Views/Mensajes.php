@@ -14,7 +14,7 @@ include 'Controllers/MensajesController.php';
             <?php foreach ($instructores as $instructor): ?>
                 <li>
                     <a href="index.php?page=Mensajes&user_id=<?= $instructor['idUsuario'] ?>">
-                        <img src="<?= strpos($instructor['foto_avatar'], 'data:image/') === 0 ? $instructor['foto_avatar'] : 'data:image/jpeg;base64,' . base64_encode($instructor['foto_avatar']) ?>"
+                        <img src="<?= strpos($mensaje['foto_avatar'], 'data:image/') === 0 ? $mensaje['foto_avatar'] : 'data:image/jpeg;base64,' . base64_encode($mensaje['foto_avatar']) ?>"
                             alt="<?= htmlspecialchars($instructor['nombre']) ?>" class="instructor-img">
                         <span><?= htmlspecialchars($instructor['nombre']) ?></span>
                     </a>
@@ -31,7 +31,7 @@ include 'Controllers/MensajesController.php';
             <div class="message-container">
                 <?php foreach ($mensajes as $mensaje): ?>
                     <div class="message <?= $mensaje['id_emisor'] == $id_emisor ? '' : 'instructor' ?>">
-                        <img src="<?= strpos($mensaje['foto_avatar'], 'data:image/') === 0 ? $mensaje['foto_avatar'] : 'data:image/jpeg;base64,' . base64_encode($mensaje['foto_avatar']) ?>"
+                        <img src="<?= htmlspecialchars($mensaje['foto_avatar_url'] ?: 'Views/Recursos/Perfil.jpg') ?>"
                             alt="<?= htmlspecialchars($mensaje['nombre']) ?>" class="user-img">
                         <div class="message-content">
                             <p class="message-text"><?= htmlspecialchars($mensaje['mensaje']) ?></p>

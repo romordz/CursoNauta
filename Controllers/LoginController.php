@@ -31,11 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $_SESSION['user_id'] = $user['idUsuario'];
         $_SESSION['user_name'] = $user['nombre'];
         $_SESSION['user_role'] = $user['id_rol'];
-        if (!empty($user['foto_avatar'])) {
-            $_SESSION['user_img'] = 'data:image/jpeg;base64,' . base64_encode($user['foto_avatar']);
-        } else {
-            $_SESSION['user_img'] = 'Views/Recursos/Perfil.jpg';
-        }
+        $_SESSION['user_img'] = !empty($user['foto_avatar_url']) ? $user['foto_avatar_url'] : 'Views/Recursos/Perfil.jpg';
         header("Location: index.php?page=Principal");
         exit();
     }

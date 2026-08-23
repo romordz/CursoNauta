@@ -65,8 +65,7 @@ $categoriasActivas = $navController->getCategoriasActivas();
             }
         ?>
             <a href="" class="profile-toggle">
-                <img src="<?php echo htmlspecialchars($comentario['foto_avatar_url'] ?: 'Recursos/Icon.png'); ?>"
-                                alt="Foto del Usuario" class="comment-user-img">
+                <img src="<?php echo $_SESSION['user_img']; ?>" alt="Usuario" class="user-img">
             </a>
             <div class="user-info profile-toggle">
                 <p class="user-name"><?php echo $_SESSION['user_name']; ?></p>

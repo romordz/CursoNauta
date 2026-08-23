@@ -178,8 +178,8 @@ switch ($_SERVER['REQUEST_METHOD']) {
                             $_SESSION['user_role'] = $id_rol;
                         }
 
-                        if (!empty($photoBase64)) {
-                            $_SESSION['user_img'] = 'data:image/jpeg;base64,' . $photoBase64;
+                        if (!empty($urlSubida)) {
+                            $_SESSION['user_img'] = $urlSubida;
                         }
 
                         $response['message'] = "Usuario modificado con éxito";
