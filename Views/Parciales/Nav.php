@@ -42,16 +42,12 @@ $categoriasActivas = $navController->getCategoriasActivas();
     <div class="user-profile" id="user-profile">
         <!-- <?php
         session_start();
-        // Obtener el id_rol almacenado en la sesión
         ?> -->
         <?php if (!isset($_SESSION['user_id'])): ?>
-            <!-- Si no ha iniciado sesión, muestra "Iniciar Sesión" -->
             <a href="index.php?page=Login" class="btn-login">Iniciar Sesión</a>
         <?php else:
-            // Obtener el id_rol almacenado en la sesión
-            $id_rol = $_SESSION['user_role'];  // Aquí asumo que ya tienes guardado el id_rol en la sesión
+            $id_rol = $_SESSION['user_role'];
 
-            // Asignar nombres a los roles basados en el id_rol
             $role_name = '';
             switch ($id_rol) {
                 case 1:
@@ -68,17 +64,15 @@ $categoriasActivas = $navController->getCategoriasActivas();
                     break;
             }
         ?>
-
-            <!-- Si ha iniciado sesión, muestra los datos del usuario y las opciones según su rol -->
             <a href="" class="profile-toggle">
-                <img src="<?php echo $_SESSION['user_img']; ?>" alt="Usuario" class="user-img">
+                <img src="<?php echo htmlspecialchars($comentario['foto_avatar_url'] ?: 'Recursos/Icon.png'); ?>"
+                                alt="Foto del Usuario" class="comment-user-img">
             </a>
             <div class="user-info profile-toggle">
                 <p class="user-name"><?php echo $_SESSION['user_name']; ?></p>
                 <p class="user-role"><?php echo ucfirst($role_name); ?></p>
             </div>
 
-            <!-- Menú desplegable según el rol del usuario -->
             <ul class="dropdown-menu">
                 <li><a href="index.php?page=Perfil">Mi perfil</a></li>
 
