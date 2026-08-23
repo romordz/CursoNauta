@@ -39,18 +39,22 @@ function renderStars($rating)
 <section class="courses-carousel">
     <h2>Cursos Más Vendidos</h2>
     <div class="course-grid">
-        <?php foreach ($cursosMasVendidos as $curso): ?>
-            <a href="index.php?page=Curso&idCurso=<?= $curso['id_curso'] ?>">
-                <div class="course-card">
-                    <img src="<?= htmlspecialchars($curso['imagen_url']) ?>" alt="Imagen del Curso" class="course-img">
-                    <h3><?= htmlspecialchars($curso['titulo']) ?></h3>
-                    <span class="course-category"><?= htmlspecialchars($curso['nombre_categoria']) ?></span>
-                    <p><?= htmlspecialchars($curso['descripcion']) ?></p>
-                    <p><strong>Costo: $<?= number_format($curso['costo'], 2) ?></strong></p>
-                    <p>Total Ventas: <?= $curso['total_ventas'] ?></p>
-                </div>
-            </a>
-        <?php endforeach; ?>
+        <?php if (!empty($cursosMasVendidos)): ?>
+            <?php foreach ($cursosMasVendidos as $curso): ?>
+                <a href="index.php?page=Curso&idCurso=<?= $curso['id_curso'] ?>">
+                    <div class="course-card">
+                        <img src="<?= htmlspecialchars($curso['imagen_url']) ?>" alt="Imagen del Curso" class="course-img">
+                        <h3><?= htmlspecialchars($curso['titulo']) ?></h3>
+                        <span class="course-category"><?= htmlspecialchars($curso['nombre_categoria']) ?></span>
+                        <p><?= htmlspecialchars($curso['descripcion']) ?></p>
+                        <p><strong>Costo: $<?= number_format($curso['costo'], 2) ?></strong></p>
+                        <p>Total Ventas: <?= $curso['total_ventas'] ?></p>
+                    </div>
+                </a>
+            <?php endforeach; ?>
+        <?php else: ?>
+            <p>Aún no hay cursos más vendidos disponibles.</p>
+        <?php endif; ?>
     </div>
 </section>
 
@@ -58,18 +62,22 @@ function renderStars($rating)
 <section class="courses-carousel">
     <h2>Cursos Recientes</h2>
     <div class="course-grid">
-        <?php foreach ($cursosRecientes as $curso): ?>
-            <a href="index.php?page=Curso&idCurso=<?= $curso['id_curso'] ?>">
-                <div class="course-card">
-                    <img src="<?= htmlspecialchars($curso['imagen_url']) ?>" alt="Imagen del Curso" class="course-img">
-                    <h3><?= htmlspecialchars($curso['titulo']) ?></h3>
-                    <span class="course-category"><?= htmlspecialchars($curso['nombre_categoria']) ?></span>
-                    <p><?= htmlspecialchars($curso['descripcion']) ?></p>
-                    <p>Costo: $<?= number_format($curso['costo'], 2) ?></p>
-                    <p>Fecha de Creación: <?= $curso['fecha_creacion'] ?></p>
-                </div>
-            </a>
-        <?php endforeach; ?>
+        <?php if (!empty($cursosRecientes)): ?>
+            <?php foreach ($cursosRecientes as $curso): ?>
+                <a href="index.php?page=Curso&idCurso=<?= $curso['id_curso'] ?>">
+                    <div class="course-card">
+                        <img src="<?= htmlspecialchars($curso['imagen_url']) ?>" alt="Imagen del Curso" class="course-img">
+                        <h3><?= htmlspecialchars($curso['titulo']) ?></h3>
+                        <span class="course-category"><?= htmlspecialchars($curso['nombre_categoria']) ?></span>
+                        <p><?= htmlspecialchars($curso['descripcion']) ?></p>
+                        <p>Costo: $<?= number_format($curso['costo'], 2) ?></p>
+                        <p>Fecha de Creación: <?= $curso['fecha_creacion'] ?></p>
+                    </div>
+                </a>
+            <?php endforeach; ?>
+        <?php else: ?>
+            <p>Aún no hay cursos recientes disponibles.</p>
+        <?php endif; ?>
     </div>
 </section>
 
@@ -77,19 +85,23 @@ function renderStars($rating)
 <section class="courses-carousel">
     <h2>Cursos Mejor Calificados</h2>
     <div class="course-grid">
-        <?php foreach ($cursosMejorCalificados as $curso): ?>
-            <a href="index.php?page=Curso&idCurso=<?= $curso['id_curso'] ?>">
-                <div class="course-card">
-                    <img src="<?= htmlspecialchars($curso['imagen_url']) ?>" alt="Imagen del Curso" class="course-img">
-                    <h3><?= htmlspecialchars($curso['titulo']) ?></h3>
-                    <span class="course-category"><?= htmlspecialchars($curso['nombre_categoria']) ?></span>
-                    <div class="stars"><?= renderStars($curso['calificacion_promedio']) ?></div>
-                    <p><?= htmlspecialchars($curso['descripcion']) ?></p>
-                    <p><strong>Costo: $<?= number_format($curso['costo'], 2) ?></strong></p>
-                    <p>Calificación Promedio: <?= round($curso['calificacion_promedio'], 1) ?></p>
-                </div>
-            </a>
-        <?php endforeach; ?>
+        <?php if (!empty($cursosMejorCalificados)): ?>
+            <?php foreach ($cursosMejorCalificados as $curso): ?>
+                <a href="index.php?page=Curso&idCurso=<?= $curso['id_curso'] ?>">
+                    <div class="course-card">
+                        <img src="<?= htmlspecialchars($curso['imagen_url']) ?>" alt="Imagen del Curso" class="course-img">
+                        <h3><?= htmlspecialchars($curso['titulo']) ?></h3>
+                        <span class="course-category"><?= htmlspecialchars($curso['nombre_categoria']) ?></span>
+                        <div class="stars"><?= renderStars($curso['calificacion_promedio']) ?></div>
+                        <p><?= htmlspecialchars($curso['descripcion']) ?></p>
+                        <p><strong>Costo: $<?= number_format($curso['costo'], 2) ?></strong></p>
+                        <p>Calificación Promedio: <?= round($curso['calificacion_promedio'], 1) ?></p>
+                    </div>
+                </a>
+            <?php endforeach; ?>
+        <?php else: ?>
+            <p>Aún no hay cursos con calificación disponibles.</p>
+        <?php endif; ?>
     </div>
 </section>
 
