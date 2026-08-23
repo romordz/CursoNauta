@@ -21,12 +21,12 @@ switch ($_SERVER['REQUEST_METHOD']) {
                     ? 'data:image/jpeg;base64,' . base64_encode($response['foto_avatar'])
                     : null;
             }
+            unset($response['contrasena']);
         } else {
             $query = "SELECT * FROM usuarios";
             $stmt = $conn->query($query);
             $response = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-            // Decodificar imágenes si es necesario
             foreach ($response as &$user) {
                 $user['foto_avatar'] = $user['foto_avatar']
                     ? 'data:image/jpeg;base64,' . base64_encode($user['foto_avatar'])
@@ -126,7 +126,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
 
                 if (!empty($_POST['contrasena'])) {
                     $fieldsToUpdate[] = "contrasena = :contrasena";
-                    $params[':contrasena'] = $_POST['contrasena'];
+                    $params[':contrasena'] = password_hash($_POST['contrasena'], PASSWORD_DEFAULT);
                 }
 
                 if (!empty($_POST['fecha_nacimiento'])) {

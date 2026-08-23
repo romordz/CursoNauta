@@ -13,7 +13,7 @@ return [
     'Pago' => 'Views/Pago.php',
     'Fin' => 'Views/Fin.php',
     'AddCurso' => 'Views/AddCurso.php',
-    'EditCurso' => 'Views/EditCurso.php',  // Aquí se agrega la ruta para editar el curso
+    'EditCurso' => 'Views/EditCurso.php',
 
     'authenticate' => 'Controllers/Authenticate.php',
     'logout' => 'Controllers/Logout.php',

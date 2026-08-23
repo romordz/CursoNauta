@@ -8,7 +8,6 @@
 $userId = $_SESSION['user_id'];
 ?>
 
-<!-- Aquí insertamos el userId desde PHP en un campo oculto -->
 <input type="hidden" id="userId" value="<?php echo $userId; ?>">
 
 <div class="edit-profile-container">
@@ -45,8 +44,9 @@ $userId = $_SESSION['user_id'];
         <label for="correo">Correo Electrónico</label>
         <input type="email" id="correo" name="correo" placeholder="Ingresa tu correo electrónico" disabled>
 
-        <label for="contrasena">Contraseña</label>
-        <input type="text" class="inputext" id="contrasena" name="contrasena" placeholder="Ingresa tu contraseña" disabled>
+        <label for="contrasena">Nueva Contraseña</label>
+        <input type="password" class="inputext" id="contrasena" name="contrasena"
+            placeholder="Dejar en blanco para no cambiarla" disabled>
 
         <button type="submit" style="display: none;">Guardar Cambios</button>
     </form>
@@ -54,5 +54,4 @@ $userId = $_SESSION['user_id'];
 </div>
 
 <script src="Views/js/JPerfil.js"></script>
-
 <?php include 'Views/Parciales/Footer.php'; ?>
