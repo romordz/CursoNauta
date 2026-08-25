@@ -5,8 +5,8 @@ gestión de cursos por niveles, sistema de kardex, pagos y comentarios/valoracio
 
 🔗 **[Ver demo en vivo](https://cursonauta-production.up.railway.app)**
 
-![Demo de la aplicación](./docs/demo.gif)
-![Demo del comentar](./docs/demo2.gif)
+![Reproducción de niveles y progreso](./docs/demo.gif)
+![Catálogo y compra de cursos](./docs/demo2.gif)
 
 ## Stack
 - **Backend:** PHP (patrón MVC), PDO con procedimientos almacenados
