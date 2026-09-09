@@ -8,11 +8,11 @@ class Database {
     public $conn;
 
     public function __construct() {
-        $this->host = getenv('MYSQLHOST') ?: 'localhost';
-        $this->db_name = getenv('MYSQLDATABASE') ?: 'CursoNauta';
-        $this->username = getenv('MYSQLUSER') ?: 'root';
-        $this->password = getenv('MYSQLPASSWORD') ?: '';
-        $this->port = getenv('MYSQLPORT') ?: '3306';
+        $this->host = getenv('DB_HOST') ?: 'localhost';
+        $this->db_name = getenv('DB_NAME') ?: 'cursonauta';
+        $this->username = getenv('DB_USER') ?: 'root';
+        $this->password = getenv('DB_PASS') ?: '';
+        $this->port = getenv('DB_PORT') ?: '3306';
     }
 
     public function getConnection() {
