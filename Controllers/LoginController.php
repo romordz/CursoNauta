@@ -1,5 +1,4 @@
 <?php
-session_start();
 include_once 'Models/Database.php';
 
 $error_correo = '';
