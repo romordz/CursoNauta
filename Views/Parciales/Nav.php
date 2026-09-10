@@ -40,9 +40,6 @@ $categoriasActivas = $navController->getCategoriasActivas();
     </nav>
 
     <div class="user-profile" id="user-profile">
-        <!-- <?php
-        session_start();
-        ?> -->
         <?php if (!isset($_SESSION['user_id'])): ?>
             <a href="index.php?page=Login" class="btn-login">Iniciar Sesión</a>
         <?php else:

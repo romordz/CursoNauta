@@ -3,7 +3,7 @@
 Plataforma de cursos en línea con roles de usuario (administrador, instructor, estudiante),
 gestión de cursos por niveles, sistema de kardex, pagos y comentarios/valoraciones.
 
-🔗 **[Ver demo en vivo](https://cursonauta-production.up.railway.app)**
+🔗 **[Ver demo en vivo](https://cursonauta.onrender.com)**
 
 ![Reproducción de niveles y progreso](./docs/demo.gif)
 ![Catálogo y compra de cursos](./docs/demo2.gif)
